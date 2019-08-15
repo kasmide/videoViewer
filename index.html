@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Viewer</title>
+    <meta charset="utf-8" name="viewport" content="width=device-width" />
+    <script type="text/javascript" src="script.js"></script>
+    <script type="text/javascript" src="https://www.youtube.com/iframe_api"></script>
+    <link rel="stylesheet" type="text/css" href="reset.css" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+
+<body>
+
+    <!--ポップアッププレイヤー-->
+    <div id="dialog" class="" onclick="Close()">
+        <a id="close" href="javascript:Close()"><img class=icon22 src="./icons/22/close.svg" alt=""></img></a>
+        </iframe>
+    </div>
+
+    <!--検索UI-->
+    <div id="searchUI">
+        <select id="service" size="1" onchange="search()">
+            <option value="youtube">YouTube</option>
+            <option value=nico>ニコニコ動画</option>
+            <option value="bookmark">ブックマーク</option>
+        </select>
+        <input type="text" id="Search" value="">
+        <a id="clear" href="javascript:clear()"><img src="./icons/22/clear.svg" alt="clear"></a>
+        <button id="Search" onclick="search()"><img class=icon32 src=./icons/24/find.svg alt="検索"></img></button>
+    </div>
+    <!--input内全消し機能+Enterで検索検索ゥ!-->
+    <script>
+        document.getElementById("Search").addEventListener("keyup", function (e) {
+            if (document.getElementById("Search").value == "") {
+                document.getElementById("clear").style.display = "none"
+            } else {
+                document.getElementById("clear").style.display = "flex";
+            }
+            if (e.keyCode == 13) {
+                search();
+            }
+        });
+    </script>
+    <!--検索結果-->
+    <div id="resultBox">
+    </div>
+</body>
+
+</html>
