@@ -78,10 +78,8 @@ p.hint {
 
 @keyframes show {
     from {
-        top:25%;
         opacity:0;
         left:0;
-        width:50vw;
         height:50%;
     }
     to {
@@ -98,8 +96,6 @@ p.hint {
         width:100vw;
     }
     to {
-        top:20px;
-        left:20px;
         height: 0;
         width:0;
         opacity:0.5;
@@ -207,13 +203,13 @@ div#resultBox {
 div#resultBox div.result {
     display: grid;
     height: 20vh;
+    min-height: 140px;
     grid-template-columns: calc(20vw + 15px) 1fr 3em;
     align-items: center;
     border-bottom-style: solid;
     border-color: #aaaaaa4b;
     border-width: 1.3px;
-    overflow: hidden;
-    max-height: 30vh;
+    grid-template-rows: 100%;
 }
 
 .result .thumb {
@@ -221,7 +217,7 @@ div#resultBox div.result {
     max-width: 30vw;
     object-fit: cover;
     margin-left: 15px;
-    height: calc(20vh - 30px);
+    height: 100%;
     grid-column: 1;
     width: calc(100% - 30px);
 }

@@ -1,12 +1,3 @@
-window.onload = function () {
-    if (document.getElementById("service").value == "bookmark") {
-        document.getElementById("Search").disabled = true;
-        search();
-    } else if (document.getElementById("Search").value != "") {
-        search();
-    }
-}
-
 function search() {
     document.getElementById("resultBox").innerHTML = "";
     if (document.getElementById("Search").value.indexOf("://www.") != -1) {
@@ -53,33 +44,16 @@ function search() {
 }
 function showBookmark() {
     //resultHTML = "";
-    bookmark = JSON.parse(localStorage.getItem("bookmark"));
+    var bookmark = JSON.parse(localStorage.getItem("bookmark"));
     if (bookmark == null) { bookmark = []; }
+    console.log(bookmark.length)
     for (i = 0; i != bookmark.length; i++) {
-        switch (bookmark[i].substring(0, bookmark[i].indexOf("|"))) {
-            case "youtube":
-                console.log(bookmark[i].substring(bookmark[i].indexOf("|") + 1));
-                xhr = new XMLHttpRequest();
-                xhr.open('GET', 'https://www.googleapis.com/youtube/v3/videos?part=snippet&id=' + bookmark[i].substring(bookmark[i].indexOf("|") + 1) + '&key=AIzaSyDM4gXM9reVQCOj18XQ2wEh_eIgK7leL3E', false);
-                xhr.send('');
-                if (xhr.readyState == 4) {
-                    var data = JSON.parse(xhr.responseText);
-                    showResult(data['items'][0]['id'], data['items'][0]['snippet']['title'], "youtube", data['items'][0]['snippet']['thumbnails']['medium']['url'], data['items'][0]['snippet']['description'])
-                }
-                break;
-            case "nico":
-                console.log(bookmark[i].substring(bookmark[i].indexOf("|") + 1));
-                xhr = new XMLHttpRequest();
-                xhr.open('GET', './p.php?id=' + bookmark[i].substring(bookmark[i].indexOf("|") + 1), false);
-                xhr.send('');
-                if (xhr.readyState == 4) {
-                    videoTitle = xhr.responseText.substring(xhr.responseText.indexOf("<title>") + 7, xhr.responseText.indexOf("</title>"));
-                    videoThumb = xhr.responseText.substring(xhr.responseText.indexOf("<thumbnail_url>") + 15, xhr.responseText.indexOf("</thumbnail_url>"));
-                    videoDesc = xhr.responseText.substring(xhr.responseText.indexOf("<description>") + 13, xhr.responseText.indexOf("</description>"));
-                    showResult(bookmark[i].substring(bookmark[i].indexOf("|") + 1), videoTitle, "nico", videoThumb, videoDesc);
-                }
-                break;
-        }
+        videoType=bookmark[i][0].substring(0,bookmark[0][0].indexOf("|"))
+        contentID=bookmark[i][0].substring(bookmark[0][0].indexOf("|")+1)
+        title=bookmark[i][1]
+        thumb=bookmark[i][2]
+        desc=bookmark[i][3]
+        showResult(contentID, title, videoType, thumb, desc);
     }
 }
 function youtubeSearch() {
@@ -143,10 +117,10 @@ function sm_to_link(desc) {
     return desc;
 }
 function showResult(contentID, title, videoType, thumb, desc) {
-    bookmark = JSON.parse(localStorage.getItem("bookmark"));
+    var bookmark = localStorage.getItem("bookmark");
     if (bookmark == null) { bookmark = []; }
     if (bookmark.indexOf(videoType + "|" + contentID) == -1) {
-        menuHTML = "<div class='result_menubox'><button class='bookmark menubutton' onclick=\"bookmark_new('" + videoType + "','" + contentID + "')\"><img class=menuicon32 src='./icons/32/bookmark-new.svg' alt='ブックマーク'></img></button><button class='result_more menubutton hidden' onclick=''><img class='menuicon32' src='./icons/32/info.svg' alt='詳細'></img></button></div>"
+        menuHTML = "<div class='result_menubox'><button class='bookmark menubutton' onclick=\"bookmark_add('" + videoType + "','" + contentID + "','"+thumb+"','"+desc+"','"+title+"')\"><img class=menuicon32 src='./icons/32/bookmark-new.svg' alt='ブックマーク'></img></button><button class='result_more menubutton hidden' onclick=''><img class='menuicon32' src='./icons/32/info.svg' alt='詳細'></img></button></div>"
     } else {
         menuHTML = "<div class='result_menubox'><button class='bookmark menubutton' onclick=\"bookmark_del('" + videoType + "','" + contentID + "')\"><img class=menuicon32 src='./icons/32/bookmark-remove.svg' alt='削除'></img></button><button class='result_more menubutton hidden' onclick=''><img class='menuicon32' src='./icons/32/info.svg' alt='詳細'></img></button></div>"
     }
@@ -162,76 +136,13 @@ function showVideo(contentID, type) {
     switch (type) {
         case "nico":
             document.getElementById("video").src = "https://embed.nicovideo.jp/watch/" + contentID + "?jsapi=1&playerId=1";
-            //こ↑こ↓参考にさせてもらいました→https://blog.hayu.io/web/create/nicovideo-embed-player-api
-            document.getElementById("video").addEventListener('message', function (e) {
-                console.log(e.data.data.playerStatus);
-                if (e.data.data.playerStatus == 4) {
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("GET", "./p.php" + document.getElementById("video").src.substring(33, document.getElementById("video").src.indexOf("?jsapi=1")))
-                    xhr.onreadystatechange = function () {
-                        if (xhr.readyState == 4) {
-                            var data = xhr.response;
-                            showVideo(data.substring(data.indexOf("<url>") + 5, data.indexOf("</url>")), "nico");
-                        }
-                    }
-                    xhr.send(null);
-                }
-            });
             break;
         case "youtube":
             document.getElementById("video").src = "https://www.youtube.com/embed/" + contentID + "?enablejsapi=1&autoplay=1";
-            var player = new YT.Player("video", {
-                events: {
-                    'onStateChange': youtube_playrecommend
-                }
-            });
             break;
     }
 
 }
-
-function youtube_playrecommend(e) {
-    if (e["data"] == 0) {
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", "https://www.googleapis.com/youtube/v3/search?type=video&relatedToVideoId=" + document.getElementById("video").src.substring(30, document.getElementById("video").src.indexOf("?enablejsapi=1")) + "&part=snippet&key=AIzaSyDM4gXM9reVQCOj18XQ2wEh_eIgK7leL3E&videoEmbeddable=true")
-        xhr.responseType = "json";
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4) {
-                var data = xhr.response;
-                showVideo(data["items"][0]["id"]["videoId"], "youtube");
-            }
-        }
-        xhr.send(null);
-        player = null;
-    }
-    console.log("PlayState" + e["data"])
-}
-
-window.addEventListener('message', (e) => {
-    if (e.origin === 'https://embed.nicovideo.jp') {
-        if (e["data"]["eventName"] == "playerStatusChange") {
-            console.log(e["data"]["data"]["playerStatus"]);
-            if (e["data"]["data"]["playerStatus"] == 4) {
-                var xhr = new XMLHttpRequest();
-                xhr.open("GET", "./p.php?related=" + document.getElementById("video").src.substring(33, document.getElementById("video").src.indexOf("?jsapi=1")))
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState == 4) {
-                        var data = xhr.responseText;
-                        showVideo(data.substring(data.indexOf("<url>") + 36, data.indexOf("</url>")), "nico");
-                    }
-                }
-                xhr.send(null);
-            }
-        }
-        if (e["data"]["eventName"] == "loadComplete") {
-            document.getElementById("video").contentWindow.postMessage({
-                eventName: 'play',
-                sourceConnectorType: 1,
-                playerId: "1",
-            }, "https://embed.nicovideo.jp/");
-        }
-    }
-});
 
 function Close() {
     document.getElementById('dialog').classList.replace("show", "hide");
@@ -245,11 +156,12 @@ function clear() {
     document.getElementById("Search").value = "";
     document.getElementById("clear").style.display = "none"
 }
-function bookmark_new(service, contentID) {
+function bookmark_add(service, contentID,thumb,desc,title) {
     bookmark = JSON.parse(localStorage.getItem("bookmark"));
     if (bookmark == null) { bookmark = []; }
     if (bookmark.indexOf(service + "|" + contentID) == -1) {
-        bookmark.push(service + "|" + contentID);
+        new_bookmark=[service+"|"+contentID,title,thumb,desc];
+        bookmark.push(new_bookmark);
         localStorage.setItem("bookmark", JSON.stringify(bookmark));
     }
     else {
@@ -260,12 +172,12 @@ function bookmark_new(service, contentID) {
 }
 function bookmark_del(service, contentID) {
     bookmark = JSON.parse(localStorage.getItem("bookmark"));
-    if (bookmark.indexOf(service + "|" + contentID) != -1) {
-        bookmark.splice(bookmark.indexOf(service + "|" + contentID), 1);
-        localStorage.setItem("bookmark", JSON.stringify(bookmark));
-    }
-    else {
-        console.error(contentID + ":すでに削除されています");
+    for(i=0;i!=bookmark.length;i++){
+        if(bookmark[i][0]=service + "|" + contentID){
+            bookmark.splice(i,1);
+            localStorage.setItem("bookmark", JSON.stringify(bookmark));
+            break;
+        }
     }
     event.target.firstChild.setAttribute("src", "./icons/32/bookmark-new.svg")
     event.target.setAttribute("onclick", "bookmark_new(\"" + service + "\",\"" + contentID + "\")");
