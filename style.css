@@ -21,7 +21,11 @@ a{
 
 #welcome{
     text-align: center;
-    margin-top:10vw;
+    margin-top:15vh;
+}
+#welcome p{
+    color:#777;
+    margin:8px;
 }
 body{
     display: flex;
@@ -134,7 +138,7 @@ select#service {
     display: grid;
     align-items: center;
     width: 100%;
-    box-shadow: 0px 4px 15px #0002;
+    box-shadow: 0px 0px 15px #0002;
     border-radius: 5px;
     grid-template-columns: 9.5em 1fr 0px 3.5em;
     background: #fffe;
@@ -142,11 +146,13 @@ select#service {
 }
 
 input#Search {
-    width: 100%;
     font-size: 20px;
-    grid-column: 2;
-    padding: 3px;
-    justify-content: center;
+    padding: 6px 30px 6px 10px;
+    margin: 7px 0 7px 0;
+    width:100%;
+}
+form#SearchForm{
+    grid-column:2;
 }
 
 input#Search[disabled] {
@@ -185,16 +191,16 @@ a#clear img {
 button#Search {
     grid-column: 4;
     display: flex;
-}
-
-button#Configure {
-    grid-column: 5;
-    display: flex;
+    width: 40px;
+height: 40px;
+padding: 2px;
+margin: 7px;
 }
 
 button {
     border-radius: 3px;
-    max-width: 3.5em;
+    width: 3em;
+    height:3em;
     padding: 10px;
 }
 
@@ -294,22 +300,9 @@ img.menuicon32 {
 /*Misc*/
 
 input {
-    border-bottom-style: solid;
-    border-bottom-color: #0002;
-    border-bottom-width: 1.3px;
+    border-radius: 4px;
+    background-color:#eee;
     transition: all 200ms 0s ease-out;
-}
-
-input:focus {
-    border-bottom-color: #000a;
-}
-
-input.checkbox {
-    display: none;
-}
-
-input.checkbox::before {
-    background: url("/icons/dialog-cancel.svg");
 }
 
 footer{

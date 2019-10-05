@@ -24,36 +24,25 @@
             <option value=nico>ニコニコ動画</option>
             <option value="bookmark">ブックマーク</option>
         </select>
-        <input type="text" id="Search" value="" placeholder="検索したい文字列を入力">
+        <form id="SearchForm" onsubmit="search();return false">
+        <input type="text" id="Search" value="" placeholder="検索..."></form>
         <a id="clear" href="javascript:clear()"><img src="./icons/22/clear.svg" alt="clear"></a>
         <button id="Search" onclick="search()"><img class=icon32 src=./icons/24/find.svg alt="検索"></img></button>
     </div>
-    <!--input内全消し機能+Enterで検索検索ゥ!-->
-    <script>
-        document.getElementById("Search").addEventListener("keyup", function (e) {
-            if (document.getElementById("Search").value == "") {
-                document.getElementById("clear").style.display = "none"
-            } else {
-                document.getElementById("clear").style.display = "flex";
-            }
-            if (e.keyCode == 13) {
-                search();
-            }
-        });
-    </script>
     <!--検索結果-->
-    <div id="resultBox">
-        <div id=welcome>
+    <div id="resultBox"></div>
+    <div id=welcome>
+        <nobr>
         <h1>Video Viewer</h1>
-        <p>上の検索ボックスにキーワードを入力して検索<br>
-        左上のメニューから検索ソース (YouTube かニコニコ動画) を選択できます。</p></div>
+        <p>上の検索ボックスに<wbr>キーワードを入力して<wbr>検索<br></p>
+            <p>左上のメニューから検索ソース<wbr> (YouTube かニコニコ動画) <wbr>を選択できます。</p></nobr>
     </div>
     <footer>
-        <div><p>このサイトでは以下のソフトウェアを利用しています:</p>
-        <a href="https://github.com/KDE/breeze-icons">Breeze Icons </a>- KDE Community (LGPL)</div>
-        <div><p>当サイトのソースコード:</p>
-        <a href=https://gitlab.com/kasmide/videoviewer>kasmide / videoViewer</a>・<a href=https://gitlab.com/kasmide/videoviewer/issues>Issues</a></div>
-    </footer>
-</body>
-
-</html>
+        <div>
+            <p>このサイトでは以下のソフトウェアを利用しています:</p>
+            <a href="https://github.com/KDE/breeze-icons">Breeze Icons </a>- KDE Community (LGPL)
+        </div>
+        <div>
+            <p>当サイトのソースコード:</p>
+            <a href=https://gitlab.com/kasmide/videoviewer>kasmide / videoViewer</a>・ <a
+                href=https://gitlab.com/kasmide/videoviewer/issues>Issues </a> </div> </footer> </body> </html>
