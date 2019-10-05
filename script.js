@@ -175,7 +175,7 @@ function showResult(contentID, title, videoType, thumb, desc) {
     titleElem.innerText = title;
     result_info.appendChild(titleElem);
     var descElem = document.createElement("p");
-    descElem.innerText = desc;
+    descElem.innerHTML= desc;
     result_info.appendChild(descElem);
     result.appendChild(result_info);
     //ブックマークボタン
