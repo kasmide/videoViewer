@@ -131,7 +131,7 @@ function nicoSearch() {
                     }
                 } else { alert("検索結果は0件です") }
             } else {
-                alert("ニコニコ動画検索用のプロキシサーバーから検索結果を取得できませんでした。ページをホストしている環境でPHPが実行可能か確認してください");
+                alert("ニコニコ動画検索用のプロキシサーバーから検索結果を取得できませんでした。\nページをホストしている環境でPHPが実行可能か確認してください");
                 document.getElementById("welcome").hidden = false;
             }
         }

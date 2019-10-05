@@ -1,9 +1,9 @@
 * {
     font-family: sans-serif;
     color: #234;
-    transition: all 200ms ease-in 0s;
     scrollbar-color: #0001 #fffa;
     scrollbar-width: thin;
+    border-radius: 0;
 }
 *:hover{
     scrollbar-color: #0002 #fffa;
@@ -15,13 +15,15 @@
 }
 
 a{
-    color: rgb(28, 110, 235);
+    color: #3082ff;
     text-decoration: none;
 }
 
 #welcome{
     text-align: center;
     margin-top:15vh;
+    display: flex;
+    margin:auto;
 }
 #welcome p{
     color:#777;
@@ -128,7 +130,12 @@ select#service {
     width: 8em;
     height: 45px;
     grid-column: 1;
-    margin-right: 1em;
+    border-bottom:solid 2px #0002;
+    padding-left:5px;
+    transition: all 300ms 0s ease-in;
+}
+select#service:focus{
+    background-color: #ddd;
 }
 
 #searchUI {
@@ -140,7 +147,7 @@ select#service {
     width: 100%;
     box-shadow: 0px 0px 15px #0002;
     border-radius: 5px;
-    grid-template-columns: 9.5em 1fr 0px 3.5em;
+    grid-template-columns: calc(8em + 20px) 1fr 0px 3.5em;
     background: #fffe;
     backdrop-filter: blur(4px);
 }
@@ -202,6 +209,7 @@ button {
     width: 3em;
     height:3em;
     padding: 10px;
+    transition: all 300ms 0s ease-in;
 }
 
 button:hover {
@@ -301,12 +309,18 @@ img.menuicon32 {
 
 input {
     border-radius: 4px;
-    background-color:#eee;
-    transition: all 200ms 0s ease-out;
+    background-color:#f0f0f0;
+    transition: all 300ms 0s ease-out;
+    border:solid 2px #0000;
+}
+input:focus{
+    border-color: #0003;
+}
+input::placeholder{
+    color:#555;
 }
 
 footer{
-    margin-top:auto;
     padding-top:1em;
     padding-bottom:4px;
     text-align: center;
