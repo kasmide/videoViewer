@@ -119,13 +119,47 @@ function sm_to_link(desc) {
 function showResult(contentID, title, videoType, thumb, desc) {
     var bookmark = localStorage.getItem("bookmark");
     if (bookmark == null) { bookmark = []; }
+    var result=document.createElement("div");
+    result.classList.add("result");
+    //サムネ要素
+    var imglink=document.createElement("a");
+    imglink.classList.add("result_imglink");
+    imglink.href="javascript:showVideo('" + contentID + "','" + videoType + "')";
+    var thumbElem=document.createElement("img");
+    thumbElem.classList.add("thumb");
+    thumbElem.src=thumb;
+    imglink.appendChild(thumbElem);
+    result.appendChild(imglink);
+    //動画情報要素
+    var result_info=document.createElement("div");
+    result_info.classList.add("result_info");
+    var  titleElem=document.createElement("a")
+    titleElem.class="result";
+    titleElem.href="javascript:showVideo('" + contentID + "','" + videoType + "')";
+    titleElem.innerText=title;
+    result_info.appendChild(titleElem);
+    var descElem=document.createElement("p");
+    descElem.innerText=desc;
+    result_info.appendChild(descElem);
+    result.appendChild(result_info);
+    //ブックマークボタン
+    var menuBox=document.createElement("div");
+    menuBox.classList.add("result_menubox");
+    var  bookmarkBtn=document.createElement("button");
+    bookmarkBtn.classList.add("bookmark","menubutton");
+    bookmarkIcon=document.createElement("img");
     if (bookmark.indexOf(videoType + "|" + contentID) == -1) {
-        menuHTML = "<div class='result_menubox'><button class='bookmark menubutton' onclick=\"bookmark_add('" + videoType + "','" + contentID + "','"+thumb+"','"+desc+"','"+title+"')\"><img class=menuicon32 src='./icons/32/bookmark-new.svg' alt='ブックマーク'></img></button><button class='result_more menubutton hidden' onclick=''><img class='menuicon32' src='./icons/32/info.svg' alt='詳細'></img></button></div>"
-    } else {
-        menuHTML = "<div class='result_menubox'><button class='bookmark menubutton' onclick=\"bookmark_del('" + videoType + "','" + contentID + "')\"><img class=menuicon32 src='./icons/32/bookmark-remove.svg' alt='削除'></img></button><button class='result_more menubutton hidden' onclick=''><img class='menuicon32' src='./icons/32/info.svg' alt='詳細'></img></button></div>"
-    }
-    //results=results+"<div class='result'><a class='result_imglink' href=javascript:showVideo('" + contentID + "','" + videoType + "')><img class='thumb' src='" + thumb + "' alt='thumbnail'></a><div class='result_info'> <a class=result href=javascript:showVideo('" + contentID + "','" + videoType + "')>" + title + "</a><p>" + desc + "</p></div>" + menuHTML + "</div>"
-    document.getElementById("resultBox").insertAdjacentHTML("beforeend", "<div class='result'><a class='result_imglink' href=javascript:showVideo('" + contentID + "','" + videoType + "')><img class='thumb' src='" + thumb + "' alt='thumbnail'></a><div class='result_info'> <a class=result href=javascript:showVideo('" + contentID + "','" + videoType + "')>" + title + "</a><p>" + desc + "</p></div>" + menuHTML + "</div>");
+        bookmarkBtn.setAttribute("onclick", "bookmark_add(\"" + videoType + "\",\"" + contentID + "\")");
+        bookmarkIcon.src="./icons/32/bookmark-new.svg";
+        } else {
+            bookmarkBtn.setAttribute("onclick", "bookmark_del(\"" + videoType + "\",\"" + contentID + "\")");
+            bookmarkIcon.src="./icons/32/bookmark-remove.svg"; 
+           }
+    bookmarkIcon.classList.add("menuicon32")
+    bookmarkBtn.appendChild(bookmarkIcon);
+    menuBox.appendChild(bookmarkBtn);
+    result.appendChild(menuBox);
+    document.getElementById("resultBox").appendChild(result)
 }
 
 function showVideo(contentID, type) {
@@ -152,11 +186,16 @@ function Close() {
         document.getElementById('dialog').classList.remove("hide");
     });
 }
+
 function clear() {
     document.getElementById("Search").value = "";
     document.getElementById("clear").style.display = "none"
 }
-function bookmark_add(service, contentID,thumb,desc,title) {
+
+function bookmark_add(service, contentID) {
+    var thumb=event.target.parentNode.parentNode.childNodes[0].childNodes[0].currentSrc;//画像src
+    var title=event.target.parentNode.parentNode.childNodes[1].childNodes[0].childNodes[0].data;//タイトル
+    var desc=event.target.parentNode.parentNode.childNodes[1].childNodes[0].innerText;//説明
     bookmark = JSON.parse(localStorage.getItem("bookmark"));
     if (bookmark == null) { bookmark = []; }
     if (bookmark.indexOf(service + "|" + contentID) == -1) {
@@ -170,8 +209,10 @@ function bookmark_add(service, contentID,thumb,desc,title) {
     event.target.firstChild.setAttribute("src", "./icons/32/bookmark-remove.svg")
     event.target.setAttribute("onclick", "bookmark_del(\"" + service + "\",\"" + contentID + "\")");
 }
+
 function bookmark_del(service, contentID) {
     bookmark = JSON.parse(localStorage.getItem("bookmark"));
+    if (bookmark == null) { bookmark = []; }
     for(i=0;i!=bookmark.length;i++){
         if(bookmark[i][0]=service + "|" + contentID){
             bookmark.splice(i,1);
@@ -180,5 +221,5 @@ function bookmark_del(service, contentID) {
         }
     }
     event.target.firstChild.setAttribute("src", "./icons/32/bookmark-new.svg")
-    event.target.setAttribute("onclick", "bookmark_new(\"" + service + "\",\"" + contentID + "\")");
+    event.target.setAttribute("onclick", "bookmark_add(\"" + service + "\",\"" + contentID + "\")");
 }
