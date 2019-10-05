@@ -63,7 +63,10 @@ function youtubeSearch() {
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
             var data = xhr.response;
+            if(data!=null){
             resultHTML = "";
+            {
+            try{if(data.error.errors[0].reason=="quotaExceeded")alert("YouTube Data API の制限に達しました");return;}catch{}
             if (data['pageInfo']['totalResults'] != 0) {
                 if (data['pageInfo']['totalResults'] >= 50) {
                     for (i = 0; i != 50; i++) {
@@ -75,7 +78,9 @@ function youtubeSearch() {
                     }
                 }
             } else { alert("検索結果は0件です") }
-        }
+        }}else{
+            alert("YouTube Data API からデータを取得できませんでした。");
+        }}
     }
     xhr.send('');
 }
@@ -86,6 +91,7 @@ function nicoSearch() {
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
             var data = xhr.response;
+            if(data!=null){
             resultHTML = "";
             if (data['meta']['totalCount'] != 0) {
                 if (data['meta']['totalCount'] >= 50) {
@@ -98,7 +104,10 @@ function nicoSearch() {
                     }
                 }
             } else { alert("検索結果は0件です") }
+        }else{
+            alert("ニコニコ動画検索用のプロキシサーバーから検索結果を取得できませんでした。ページをホストしている環境でPHPが実行可能か確認してください")
         }
+    }
     }
     xhr.send('');
 }
