@@ -7,4 +7,5 @@ if ($_GET['id'] != NULL) {
 } elseif ($_GET['related'] != NULL) {
     $content = file_get_contents("http://flapi.nicovideo.jp/api/getrelation?video=${_GET['related']}");
 }
+if($content == ""){$content="{\"error\":\"no content received\"}";}
 echo $content;
