@@ -121,6 +121,7 @@ function nicoSearch() {
             var data = xhr.response;
             if (data != null) {
                 resultHTML = "";
+                try { if (data["ERROR"] == "NO_CONTENT_RECEIVED") alert("ニコニコ動画APIとプロキシサーバーの間での接続に問題が発生しました"); document.getElementById("welcome").style="display:block"; return; } catch{ }
                 if (data['meta']['totalCount'] != 0) {
                     if (data['meta']['totalCount'] >= 50) {
                         for (i = 0; i != 50; i++) {
