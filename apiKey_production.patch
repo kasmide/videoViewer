@@ -1,0 +1,6 @@
+@@ -1,4 +1,4 @@
+-youtubeKey="AIzaSyBW1cZ-ehzqJ0PhClmNQFEu9RoDuqRQoD8";
++youtubeKey="AIzaSyDM4gXM9reVQCOj18XQ2wEh_eIgK7leL3E";
+ window.onload = function () {
+     if (document.getElementById("Search").value == "") {
+         document.getElementById("clear").style.display = "none"

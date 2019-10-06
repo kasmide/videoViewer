@@ -1,3 +1,4 @@
+youtubeKey="AIzaSyBW1cZ-ehzqJ0PhClmNQFEu9RoDuqRQoD8";
 window.onload = function () {
     if (document.getElementById("Search").value == "") {
         document.getElementById("clear").style.display = "none"
@@ -57,7 +58,7 @@ function search() {
                         break;
                 }
             }
-        }else document.getElementById("welcome").style="display:flex";
+        }else document.getElementById("welcome").style="display:block";
     } else {
         document.getElementById("Search").disabled = true;
         showBookmark();
@@ -77,11 +78,11 @@ function showBookmark() {
             desc = bookmark[i][3]
             showResult(contentID, title, videoType, thumb, desc);
         }
-    } else { document.getElementById("welcome").style="display:flex"; alert("ブックマークは空です") }
+    } else { document.getElementById("welcome").style="display:block"; alert("ブックマークは空です") }
 }
 function youtubeSearch() {
     xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://www.googleapis.com/youtube/v3/search?type=video&part=snippet&order=relevance&relevanceLanguage=ja&regionCode=JP&videoEmbeddable=true&q=' + document.getElementById("Search").value + '&key=AIzaSyDM4gXM9reVQCOj18XQ2wEh_eIgK7leL3E&maxResults=50');
+    xhr.open('GET', 'https://www.googleapis.com/youtube/v3/search?type=video&part=snippet&order=relevance&relevanceLanguage=ja&regionCode=JP&videoEmbeddable=true&q=' + document.getElementById("Search").value + '&key='+youtubeKey+'&maxResults=50');
     xhr.responseType = "json";
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
@@ -89,7 +90,7 @@ function youtubeSearch() {
             if (data != null) {
                 resultHTML = "";
                 {
-                    try { if (data.error.errors[0].reason == "quotaExceeded") alert("YouTube Data API の制限に達しました。時間をあけて再度お試しください"); document.getElementById("welcome").style="display:flex"; return; } catch{ }
+                    try { if (data.error.errors[0].reason == "quotaExceeded") alert("YouTube Data API の制限に達しました。時間をあけて再度お試しください"); document.getElementById("welcome").style="display:block"; return; } catch{ }
                     if (data['pageInfo']['totalResults'] != 0) {
                         if (data['pageInfo']['totalResults'] >= 50) {
                             for (i = 0; i != 50; i++) {
@@ -103,7 +104,7 @@ function youtubeSearch() {
                     } else { alert("検索結果は0件です") }
                 }
             } else {
-                document.getElementById("welcome").style="display:flex";
+                document.getElementById("welcome").style="display:block";
                 alert("YouTube Data API からデータを取得できませんでした。");
             }
         }
@@ -132,7 +133,7 @@ function nicoSearch() {
                 } else { alert("検索結果は0件です") }
             } else {
                 alert("ニコニコ動画検索用のプロキシサーバーから検索結果を取得できませんでした。\nページをホストしている環境でPHPが実行可能か確認してください");
-                document.getElementById("welcome").style="display:flex";
+                document.getElementById("welcome").style="display:block";
             }
         }
     }

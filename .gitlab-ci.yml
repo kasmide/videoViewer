@@ -3,6 +3,7 @@
 pages:
   stage: deploy
   script:
+    - patch script.js apiKey_production.patch
     - mkdir .public
     - cp -r * .public
     - mv .public public
