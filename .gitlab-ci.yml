@@ -3,11 +3,10 @@
 pages:
   stage: deploy
   script:
- - echo "1c1                                                                    
+    - echo '1c1                                                                    
 < youtubeKey="AIzaSyBW1cZ-ehzqJ0PhClmNQFEu9RoDuqRQoD8";
 ---
-> youtubeKey="AIzaSyDM4gXM9reVQCOj18XQ2wEh_eIgK7leL3E";
-"|patch script.js -
+> youtubeKey="AIzaSyDM4gXM9reVQCOj18XQ2wEh_eIgK7leL3E";'|patch script.js -
     - mkdir .public
     - cp -r * .public
     - mv .public public
