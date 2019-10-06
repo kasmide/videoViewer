@@ -40,11 +40,6 @@ body{
     outline: none!important;
 }
 
-p.hint {
-    color: #777;
-    text-align: center;
-}
-
 #video {
     display: block;
     margin: auto;
@@ -338,7 +333,8 @@ footer div{
         grid-template-rows: 0.7fr 1fr;
         position: inherit;
     }
-    input#Search {
+    
+    form#SearchForm{
         grid-row: 2;
         grid-column: 1/4;
     }
