@@ -70,6 +70,7 @@ function showBookmark() {
     if (bookmark == null) { bookmark = []; }
     console.log(bookmark.length)
     if (bookmark.length != 0) {
+        document.getElementById("welcome").style="display:none"
         for (i = 0; i != bookmark.length; i++) {
             videoType = bookmark[i][0].substring(0, bookmark[0][0].indexOf("|"))
             contentID = bookmark[i][0].substring(bookmark[0][0].indexOf("|") + 1)
@@ -173,7 +174,7 @@ function showResult(contentID, title, videoType, thumb, desc) {
     var titleElem = document.createElement("a")
     titleElem.class = "result";
     titleElem.href = "javascript:showVideo('" + contentID + "','" + videoType + "')";
-    titleElem.innerText = title;
+    titleElem.innerHTML = title;
     result_info.appendChild(titleElem);
     var descElem = document.createElement("p");
     descElem.innerHTML= desc;
