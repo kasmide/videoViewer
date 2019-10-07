@@ -3,7 +3,7 @@
 pages:
   stage: deploy
   script:
-    - echo -e "1c1\n< youtubeKey=\"AIzaSyBW1cZ-ehzqJ0PhClmNQFEu9RoDuqRQoD8\";\n---\n> youtubeKey=\"AIzaSyDM4gXM9reVQCOj18XQ2wEh_eIgK7leL3E\";\n"|patch script.js -
+    - echo "Patching script.js"&&sed -i -e "s/AIzaSyBW1cZ-ehzqJ0PhClmNQFEu9RoDuqRQoD8/AIzaSyDM4gXM9reVQCOj18XQ2wEh_eIgK7leL3E/g" script.js
     - mkdir .public
     - cp -r * .public
     - mv .public public
