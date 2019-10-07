@@ -1,4 +1,4 @@
-youtubeKey="AIzaSyBW1cZ-ehzqJ0PhClmNQFEu9RoDuqRQoD8";
+youtubeKey = "AIzaSyBW1cZ-ehzqJ0PhClmNQFEu9RoDuqRQoD8";
 window.onload = function () {
     if (document.getElementById("Search").value == "") {
         document.getElementById("clear").style.display = "none"
@@ -12,7 +12,7 @@ window.onload = function () {
             document.getElementById("clear").style.display = "flex";
         }
     }
-    document.getElementById("Search").onchange=search();
+    document.getElementById("Search").onchange = search();
 }
 
 function search() {
@@ -46,7 +46,7 @@ function search() {
                 }
                 //キーワードが入力された場合
             } else {
-                document.getElementById("welcome").style="display:none"
+                document.getElementById("welcome").style = "display:none"
                 switch (document.getElementById("service").value) {
                     case "nico":
                         document.getElementById("Search").disabled = false;
@@ -58,7 +58,7 @@ function search() {
                         break;
                 }
             }
-        }else document.getElementById("welcome").style="display:block";
+        } else document.getElementById("welcome").style = "display:block";
     } else {
         document.getElementById("Search").disabled = true;
         showBookmark();
@@ -70,7 +70,7 @@ function showBookmark() {
     if (bookmark == null) { bookmark = []; }
     console.log(bookmark.length)
     if (bookmark.length != 0) {
-        document.getElementById("welcome").style="display:none"
+        document.getElementById("welcome").style = "display:none"
         for (i = 0; i != bookmark.length; i++) {
             videoType = bookmark[i][0].substring(0, bookmark[0][0].indexOf("|"))
             contentID = bookmark[i][0].substring(bookmark[0][0].indexOf("|") + 1)
@@ -79,11 +79,11 @@ function showBookmark() {
             desc = bookmark[i][3]
             showResult(contentID, title, videoType, thumb, desc);
         }
-    } else { document.getElementById("welcome").style="display:block"; alert("ブックマークは空です") }
+    } else { document.getElementById("welcome").style = "display:block"; alert("ブックマークは空です") }
 }
 function youtubeSearch() {
     xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://www.googleapis.com/youtube/v3/search?type=video&part=snippet&order=relevance&relevanceLanguage=ja&regionCode=JP&videoEmbeddable=true&q=' + document.getElementById("Search").value + '&key='+youtubeKey+'&maxResults=50');
+    xhr.open('GET', 'https://www.googleapis.com/youtube/v3/search?type=video&part=snippet&order=relevance&relevanceLanguage=ja&regionCode=JP&videoEmbeddable=true&q=' + document.getElementById("Search").value + '&key=' + youtubeKey + '&maxResults=50');
     xhr.responseType = "json";
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
@@ -91,7 +91,13 @@ function youtubeSearch() {
             if (data != null) {
                 resultHTML = "";
                 {
-                    try { if (data.error.errors[0].reason == "quotaExceeded") alert("YouTube Data API の制限に達しました。時間をあけて再度お試しください"); document.getElementById("welcome").style="display:block"; return; } catch{ }
+                    try {
+                        if (data.error.errors[0].reason == "quotaExceeded") {
+                            alert("YouTube Data API の制限に達しました。時間をあけて再度お試しください");
+                            document.getElementById("welcome").style = "display:block";
+                            return;
+                        }
+                    } catch{ }
                     if (data['pageInfo']['totalResults'] != 0) {
                         if (data['pageInfo']['totalResults'] >= 50) {
                             for (i = 0; i != 50; i++) {
@@ -105,7 +111,7 @@ function youtubeSearch() {
                     } else { alert("検索結果は0件です") }
                 }
             } else {
-                document.getElementById("welcome").style="display:block";
+                document.getElementById("welcome").style = "display:block";
                 alert("YouTube Data API からデータを取得できませんでした。");
             }
         }
@@ -121,7 +127,13 @@ function nicoSearch() {
             var data = xhr.response;
             if (data != null) {
                 resultHTML = "";
-                try { if (data["ERROR"] == "NO_CONTENT_RECEIVED") alert("ニコニコ動画APIとプロキシサーバーの間での接続に問題が発生しました"); document.getElementById("welcome").style="display:block"; return; } catch{ }
+                try {
+                    if (data["ERROR"] == "NO_CONTENT_RECEIVED") {
+                        alert("ニコニコ動画APIとプロキシサーバーの間での接続に問題が発生しました");
+                        document.getElementById("welcome").style = "display:block";
+                        return;
+                    }
+                } catch{ }
                 if (data['meta']['totalCount'] != 0) {
                     if (data['meta']['totalCount'] >= 50) {
                         for (i = 0; i != 50; i++) {
@@ -135,7 +147,7 @@ function nicoSearch() {
                 } else { alert("検索結果は0件です") }
             } else {
                 alert("ニコニコ動画検索用のプロキシサーバーから検索結果を取得できませんでした。\nページをホストしている環境でPHPが実行可能か確認してください");
-                document.getElementById("welcome").style="display:block";
+                document.getElementById("welcome").style = "display:block";
             }
         }
     }
@@ -178,7 +190,7 @@ function showResult(contentID, title, videoType, thumb, desc) {
     titleElem.innerHTML = title;
     result_info.appendChild(titleElem);
     var descElem = document.createElement("p");
-    descElem.innerHTML= desc;
+    descElem.innerHTML = desc;
     result_info.appendChild(descElem);
     result.appendChild(result_info);
     //ブックマークボタン
