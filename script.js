@@ -265,7 +265,7 @@ function bookmark_del(service, contentID) {
     bookmark = JSON.parse(localStorage.getItem("bookmark"));
     if (bookmark == null) { bookmark = []; }
     for (i = 0; i != bookmark.length; i++) {
-        if (bookmark[i][0] = service + "|" + contentID) {
+        if (bookmark[i][0] == service + "|" + contentID) {
             bookmark.splice(i, 1);
             localStorage.setItem("bookmark", JSON.stringify(bookmark));
             break;
