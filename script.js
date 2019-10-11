@@ -65,15 +65,13 @@ function search() {
     }
 }
 function showBookmark() {
-    //resultHTML = "";
     var bookmark = JSON.parse(localStorage.getItem("bookmark"));
     if (bookmark == null) { bookmark = []; }
-    console.log(bookmark.length)
     if (bookmark.length != 0) {
         document.getElementById("welcome").style = "display:none"
         for (i = 0; i != bookmark.length; i++) {
-            videoType = bookmark[i][0].substring(0, bookmark[0][0].indexOf("|"))
-            contentID = bookmark[i][0].substring(bookmark[0][0].indexOf("|") + 1)
+            videoType = bookmark[i][0].substring(0, bookmark[i][0].indexOf("|"))
+            contentID = bookmark[i][0].substring(bookmark[i][0].indexOf("|") + 1)
             title = bookmark[i][1]
             thumb = bookmark[i][2]
             desc = bookmark[i][3]
@@ -96,6 +94,8 @@ function youtubeSearch() {
                             alert("YouTube Data API の制限に達しました。時間をあけて再度お試しください");
                             document.getElementById("welcome").style = "display:block";
                             return;
+                        }else{
+                            alert(data.error.message);
                         }
                     } catch{ }
                     if (data['pageInfo']['totalResults'] != 0) {
