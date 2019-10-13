@@ -37,7 +37,7 @@ body {
 main {
   display: grid;
   grid-row: 1;
-  grid-template-rows: auto auto 1fr auto;
+  grid-template-rows: auto auto 1fr;
 }
 /*クソダサ枠線を勝手に描画するブラウザを許すな*/
 
@@ -310,13 +310,14 @@ footer div {
     margin-top: 0;
   }
   body {
-    grid-template-rows: auto auto 1fr auto;
+    grid-template-rows: auto 1fr auto;
   }
   #welcome {
     grid-row: 3;
   }
   .searchOptions {
     flex-direction: column;
+    margin-left:10px;
   }
   .searchOptions div {
     display: grid;
@@ -326,7 +327,7 @@ footer div {
     grid-row: 1;
   }
   footer {
-    grid-row: 4;
+    grid-row: 3;
   }
 
   form#SearchForm {
