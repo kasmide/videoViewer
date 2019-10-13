@@ -29,14 +29,14 @@ a {
   color: #777;
   margin: 8px;
 }
-body{
+body {
   grid-template-rows: 1fr auto;
   display: grid;
-  min-height:100vh;
+  min-height: 100vh;
 }
 main {
   display: grid;
-  grid-row:1;
+  grid-row: 1;
   grid-template-rows: auto auto 1fr auto;
 }
 /*クソダサ枠線を勝手に描画するブラウザを許すな*/
@@ -123,17 +123,17 @@ main {
 }
 
 /*Search User Interface*/
-select#service{
-grid-column: 1;
-margin:10px;
+select#service {
+  grid-column: 1;
+  margin: 10px;
 }
-.searchOptions{
+.searchOptions {
   display: flex;
-  flex-direction:row-reverse;
+  flex-direction: row-reverse;
 }
-.searchOptions div{
-  margin-right:10px;
-  display:flex;
+.searchOptions div {
+  margin-right: 10px;
+  display: flex;
   align-items: center;
 }
 
@@ -153,13 +153,13 @@ margin:10px;
 
 input#Search {
   font-size: 20px;
-  height:37px;
+  height: 37px;
   padding: 6px 30px 6px 10px;
   width: 100%;
 }
 form#SearchForm {
   grid-column: 2;
-  display:flex;
+  display: flex;
 }
 
 img.icon22 {
@@ -192,18 +192,18 @@ a#clear img {
 button#Search {
   grid-column: 3;
   display: flex;
-  width:40px;
-  height:40px;
-  margin:5px;
+  width: 40px;
+  height: 40px;
+  margin: 5px;
 }
 
-main{
-  margin-top:60px;
+main {
+  margin-top: 60px;
 }
 
 /*resultBox*/
-#resultBox{
-  grid-row:2;
+#resultBox {
+  grid-row: 2;
 }
 div#resultBox div.result {
   display: grid;
@@ -215,7 +215,7 @@ div#resultBox div.result {
   border-color: #aaaaaa4b;
   border-width: 1.3px;
   grid-template-rows: 100%;
-  max-width:100vw;
+  max-width: 100vw;
 }
 
 .result .thumb {
@@ -305,14 +305,24 @@ footer div {
     position: inherit;
   }
 
+  main {
+    grid-row: 2;
+    margin-top: 0;
+  }
   body {
     grid-template-rows: auto auto 1fr auto;
   }
   #welcome {
     grid-row: 3;
   }
-
-  #SearchUI {
+  .searchOptions {
+    flex-direction: column;
+  }
+  .searchOptions div {
+    display: grid;
+    grid-template-columns: auto 1fr;
+  }
+  #searchUI {
     grid-row: 1;
   }
   footer {
@@ -321,7 +331,8 @@ footer div {
 
   form#SearchForm {
     grid-row: 2;
-    grid-column: 1/4;
+    grid-column: 1/3;
+    margin-left: 10px;
   }
   button#Search {
     grid-row: 2;
@@ -331,7 +342,6 @@ footer div {
     width: calc(100% - 1em);
   }
   div#resultBox {
-    margin-top: 150px;
   }
   a#clear {
     grid-row: 2;
