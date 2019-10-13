@@ -16,6 +16,20 @@ window.onload = function () {
 }
 
 function search() {
+    switch (document.getElementById("service").value) {
+        case "nico":
+            document.getElementById("searchOptions_nico").style="display:flex";
+            document.getElementById("searchOptions_yt").style="display:none";
+            break;
+        case "youtube":
+            document.getElementById("searchOptions_yt").style="display:flex";
+            document.getElementById("searchOptions_nico").style="display:none";
+            break;
+        case "bookmark":
+                document.getElementById("searchOptions_nico").style="display:none";
+                document.getElementById("searchOptions_yt").style="display:none";
+            break;
+    }
     document.getElementById("resultBox").innerHTML = "";
     if (document.getElementById("service").value != "bookmark") {
         document.getElementById("Search").disabled = false;
@@ -81,7 +95,7 @@ function showBookmark() {
 }
 function youtubeSearch() {
     xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://www.googleapis.com/youtube/v3/search?type=video&part=snippet&order=relevance&relevanceLanguage=ja&regionCode=JP&videoEmbeddable=true&q=' + document.getElementById("Search").value + '&key=' + youtubeKey + '&maxResults=50');
+    xhr.open('GET', 'https://www.googleapis.com/youtube/v3/search?type=video&part=snippet&order='+document.getElementsByClassName("sort")[1].value+'&relevanceLanguage=ja&regionCode=JP&videoEmbeddable=true&q=' + document.getElementById("Search").value + '&key=' + youtubeKey + '&maxResults=50');
     xhr.responseType = "json";
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
@@ -120,7 +134,7 @@ function youtubeSearch() {
 }
 function nicoSearch() {
     xhr = new XMLHttpRequest();
-    xhr.open('GET', './p.php?q=' + document.getElementById("Search").value, true);
+    xhr.open('GET', './p.php?q=' + document.getElementById("Search").value+"&target="+document.getElementsByClassName("target")[0].value+"&sort="+document.getElementsByClassName("sort")[0].value, true);
     xhr.responseType = 'json';
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {

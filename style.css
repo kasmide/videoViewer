@@ -23,16 +23,21 @@ a {
   text-align: center;
   margin-top: 15vh;
   margin: auto;
-  grid-row: 2;
+  grid-row: 3;
 }
 #welcome p {
   color: #777;
   margin: 8px;
 }
-body {
+body{
+  grid-template-rows: 1fr auto;
   display: grid;
-  grid-template-rows: auto 1fr auto;
-  min-height: 100vh;
+  min-height:100vh;
+}
+main {
+  display: grid;
+  grid-row:1;
+  grid-template-rows: auto auto 1fr auto;
 }
 /*クソダサ枠線を勝手に描画するブラウザを許すな*/
 
@@ -118,23 +123,21 @@ body {
 }
 
 /*Search User Interface*/
-
-select#service {
-  background: url("./icons/22/arrow-bottom.svg") right no-repeat;
-  background-size: 20px;
-  width: 8em;
-  height: 45px;
-  grid-column: 1;
-  border-bottom: solid 2px #0002;
-  padding-left: 5px;
-  transition: all 300ms 0s ease-in;
+select#service{
+grid-column: 1;
+margin:10px;
 }
-select#service:focus {
-  border-bottom-color: #0004;
+.searchOptions{
+  display: flex;
+  flex-direction:row-reverse;
+}
+.searchOptions div{
+  margin-right:10px;
+  display:flex;
+  align-items: center;
 }
 
 #searchUI {
-  padding-left: 0.5em;
   position: fixed;
   top: 0;
   display: grid;
@@ -142,7 +145,7 @@ select#service:focus {
   width: 100%;
   box-shadow: 0px 0px 15px #0002;
   border-radius: 5px;
-  grid-template-columns: calc(8em + 20px) 1fr 0px 3.5em;
+  grid-template-columns: calc(8em + 20px) 1fr 50px;
   background: #fffe;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -150,16 +153,13 @@ select#service:focus {
 
 input#Search {
   font-size: 20px;
+  height:37px;
   padding: 6px 30px 6px 10px;
-  margin: 7px 0 7px 0;
   width: 100%;
 }
 form#SearchForm {
   grid-column: 2;
-}
-
-input#Search[disabled] {
-  color: #bbb;
+  display:flex;
 }
 
 img.icon22 {
@@ -182,48 +182,29 @@ a#clear {
   display: none;
   position: relative;
   left: -25px;
-  width: 18px;
-  grid-column: 3;
+  width: 0px;
 }
 
 a#clear img {
   width: 18px;
-  grid-column: 3;
 }
 
 button#Search {
-  grid-column: 4;
+  grid-column: 3;
   display: flex;
-  width: 40px;
-  height: 40px;
-  padding: 2px;
-  margin: 7px;
+  width:40px;
+  height:40px;
+  margin:5px;
 }
 
-button {
-  border-radius: 3px;
-  width: 3em;
-  height: 3em;
-  padding: 10px;
-  transition: all 300ms 0s ease-in;
-}
-
-button:hover {
-  background: #eee;
-  transition: all 300ms 0s ease-in;
-}
-
-button:active {
-  background: #ddd;
-  transition: all 100ms 0s ease-out;
+main{
+  margin-top:60px;
 }
 
 /*resultBox*/
-
-div#resultBox {
-  margin-top: 60px;
+#resultBox{
+  grid-row:2;
 }
-
 div#resultBox div.result {
   display: grid;
   height: 20vh;
@@ -304,27 +285,13 @@ img.menuicon32 {
 
 /*Misc*/
 
-input {
-  border-radius: 4px;
-  background-color: #f0f0f0;
-  transition: all 300ms 0s ease-out;
-  border: solid 2px #0000;
-}
-input:focus {
-  background-color: #fafafa;
-  box-shadow: 0px 0px 5px #0005;
-}
-input::placeholder {
-  color: #555;
-}
-
 footer {
   padding-top: 1em;
   padding-bottom: 4px;
   text-align: center;
   font-size: 14px;
   margin-top: auto;
-  grid-row: 3;
+  grid-row: 2;
 }
 footer div {
   margin-bottom: 14px;
@@ -373,7 +340,6 @@ footer div {
     grid-row: 2;
   }
   div#resultBox {
-    margin-top: 10px;
     grid-row: 2;
   }
   div#resultBox div.result {

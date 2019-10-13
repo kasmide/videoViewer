@@ -20,23 +20,54 @@
 
     <!--検索UI-->
     <div id="searchUI">
-        <select id="service" size="1" onchange="search()">
+        <select id="service" onchange="search()">
             <option value="youtube">YouTube</option>
             <option value=nico>ニコニコ動画</option>
             <option value="bookmark">ブックマーク</option>
         </select>
         <form id="SearchForm" onsubmit="search();return false">
-        <input type="text" id="Search" value="" placeholder="検索..."></form>
-        <a id="clear" href="javascript:clear()"><img src="./icons/22/clear.svg" alt="clear"></a>
+            <input type="text" id="Search" value="" placeholder="検索...">
+            <a id="clear" href="javascript:clear()"><img src="./icons/22/clear.svg" alt="clear"></a></form>
         <button id="Search" onclick="search()"><img class=icon32 src=./icons/24/find.svg alt="検索"></img></button>
     </div>
-    <!--検索結果-->
-    <div id="resultBox"></div>
-    <div id=welcome>
-        <h1>Video Viewer</h1>
-        <p>上の検索ボックスに<wbr>キーワードを入力して<wbr>検索<br></p>
+
+    <main>
+        <div id="searchOptions_nico" class="searchOptions" style="display:none">
+            <div>
+                <p>検索対象:</p>
+                <select class="target" onchange="search()">
+                    <option value="title,description,tags">タイトルなど</option>
+                    <option value="tagsExact">タグ</option>
+                </select>
+            </div>
+            <div>
+                <p>ソート順:</p>
+                <select class="sort" onchange="search()">
+                    <option value="-viewCounter">再生回数</option>
+                    <option value="startTime">新着順</option>
+                    <option value="-commentCounter">コメント数</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="searchOptions_yt" class="searchOptions">
+            <div>
+                <p>ソート順:</p>
+                <select class="sort" onchange="search()">
+                    <option value="relevance">関連順</option>
+                    <option value="date">新着順</option>
+                    <option value="viewCount">再生回数</option>
+                </select>
+            </div>
+        </div>
+        <!--検索結果-->
+        <div id="resultBox"></div>
+        <div id=welcome>
+            <h1>Video Viewer</h1>
+            <p>上の検索ボックスに<wbr>キーワードを入力して<wbr>検索<br></p>
             <p>左上のメニューから検索ソース<wbr> (YouTube かニコニコ動画) <wbr>を選択できます。</p>
-    </div>
+        </div>
+    </main>
     <footer>
         <div>
             <p>このサイトでは以下のソフトウェアを利用しています:</p>
