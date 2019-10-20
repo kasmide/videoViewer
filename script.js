@@ -260,7 +260,7 @@ function clear() {
 function bookmark_add(service, contentID) {
     var thumb = event.target.parentNode.parentNode.childNodes[0].childNodes[0].currentSrc;//画像src
     var title = event.target.parentNode.parentNode.childNodes[1].childNodes[0].childNodes[0].data;//タイトル
-    var desc = event.target.parentNode.parentNode.childNodes[1].childNodes[0].innerText;//説明
+    var desc = event.target.parentNode.parentNode.childNodes[1].childNodes[1].innerHTML;//説明
     bookmark = JSON.parse(localStorage.getItem("bookmark"));
     if (bookmark == null) { bookmark = []; }
     if (bookmark.indexOf(service + "|" + contentID) == -1) {
