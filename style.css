@@ -342,8 +342,6 @@ footer div {
     grid-column: 1/5;
     width: calc(100% - 1em);
   }
-  div#resultBox {
-  }
   a#clear {
     grid-row: 2;
   }
