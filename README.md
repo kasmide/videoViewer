@@ -6,6 +6,6 @@
 ## ライセンス
 Apache License
   
-**/icons** 以下のファイルはKDE Community により作成された Breeze icon theme(LGPL)です
+**/icons** と **/breeze** 以下のファイル はKDE Community によって作成された Breeze icon theme(LGPL) です
 ## クレジット
 [Breeze icons (LGPL)](https://github.com/KDE/breeze-icons)
