@@ -212,15 +212,16 @@ function showResult(contentID, title, videoType, thumb, desc) {
     menuBox.classList.add("result_menubox");
     var bookmarkBtn = document.createElement("button");
     bookmarkBtn.classList.add("bookmark", "menubutton");
-    bookmarkIcon = document.createElement("img");
+    bookmarkIcon = document.createElement("i");
+    bookmarkIcon.classList.add("icon");
     if (bookmark.indexOf(videoType + "|" + contentID) == -1) {
         bookmarkBtn.setAttribute("onclick", "bookmark_add(\"" + videoType + "\",\"" + contentID + "\")");
-        bookmarkIcon.src = "./icons/32/bookmark-new.svg";
+        bookmarkIcon.classList.add("icon_bookmark-new");
     } else {
         bookmarkBtn.setAttribute("onclick", "bookmark_del(\"" + videoType + "\",\"" + contentID + "\")");
-        bookmarkIcon.src = "./icons/32/bookmark-remove.svg";
+        bookmarkIcon.classList.add("icon_bookmark-remove");
     }
-    bookmarkIcon.classList.add("menuicon32")
+    bookmarkIcon.classList.add("menuicon")
     bookmarkBtn.appendChild(bookmarkIcon);
     menuBox.appendChild(bookmarkBtn);
     result.appendChild(menuBox);
@@ -271,7 +272,7 @@ function bookmark_add(service, contentID) {
     else {
         console.error(contentID + ":すでに保存されています");
     }
-    event.target.firstChild.setAttribute("src", "./icons/32/bookmark-remove.svg")
+    event.target.firstChild.classList.replace("icon_bookmark-new","icon_bookmark-remove");
     event.target.setAttribute("onclick", "bookmark_del(\"" + service + "\",\"" + contentID + "\")");
 }
 
@@ -285,6 +286,6 @@ function bookmark_del(service, contentID) {
             break;
         }
     }
-    event.target.firstChild.setAttribute("src", "./icons/32/bookmark-new.svg")
+    event.target.firstChild.classList.replace("icon_bookmark-remove","icon_bookmark-new")
     event.target.setAttribute("onclick", "bookmark_add(\"" + service + "\",\"" + contentID + "\")");
 }
