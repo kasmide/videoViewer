@@ -213,13 +213,13 @@ function showResult(contentID, title, videoType, thumb, desc) {
     var bookmarkBtn = document.createElement("button");
     bookmarkBtn.classList.add("bookmark", "menubutton");
     bookmarkIcon = document.createElement("i");
-    bookmarkIcon.classList.add("icon");
+    bookmarkIcon.classList.add("material-icons");
     if (bookmark.indexOf(videoType + "|" + contentID) == -1) {
         bookmarkBtn.setAttribute("onclick", "bookmark_add(\"" + videoType + "\",\"" + contentID + "\")");
-        bookmarkIcon.classList.add("icon_bookmark-new");
+        bookmarkIcon.innerText="bookmark_border";
     } else {
         bookmarkBtn.setAttribute("onclick", "bookmark_del(\"" + videoType + "\",\"" + contentID + "\")");
-        bookmarkIcon.classList.add("icon_bookmark-remove");
+        bookmarkIcon.innerText="bookmark";
     }
     bookmarkIcon.classList.add("menuicon")
     bookmarkBtn.appendChild(bookmarkIcon);
@@ -272,7 +272,7 @@ function bookmark_add(service, contentID) {
     else {
         console.error(contentID + ":すでに保存されています");
     }
-    event.target.firstChild.classList.replace("icon_bookmark-new","icon_bookmark-remove");
+    event.target.firstChild.innerText="bookmark";
     event.target.setAttribute("onclick", "bookmark_del(\"" + service + "\",\"" + contentID + "\")");
 }
 
@@ -286,6 +286,6 @@ function bookmark_del(service, contentID) {
             break;
         }
     }
-    event.target.firstChild.classList.replace("icon_bookmark-remove","icon_bookmark-new")
+    event.target.firstChild.innerText="bookmark_border"
     event.target.setAttribute("onclick", "bookmark_add(\"" + service + "\",\"" + contentID + "\")");
 }

@@ -5,6 +5,7 @@
   scrollbar-color: #0001 #fffa;
   scrollbar-width: thin;
   border-radius: 0;
+  color:#444;
 }
 *:hover {
   scrollbar-color: #0002 #fffa;
@@ -61,17 +62,17 @@ main {
 #close {
   text-decoration: none;
   color: #fff;
-  display: inline-block;
+  display: flex;
   position: absolute;
-  top: 5px;
-  left: 5px;
-  width: 30px;
-  height: 30px;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
 }
 
-#close .icon22 {
-  width: 30px;
-  height: 30px;
+#close .close_icon {
+  font-size:25px;
+  color:#fff;
 }
 
 #dialog {
@@ -79,7 +80,7 @@ main {
   height: 100%;
   margin: auto;
   position: fixed;
-  z-index: 1;
+  z-index: 2;
   background: rgba(0, 0, 0, 0.9);
   display: none;
   overflow: hidden;
@@ -139,6 +140,7 @@ select#service {
 }
 
 #searchUI {
+  z-index:1;
   position: fixed;
   top: 0;
   display: grid;
@@ -164,17 +166,17 @@ form#SearchForm {
 }
 
 .clear_icon {
+  display:flex;
   align-items: center;
   justify-content: center;
-  margin: auto;
-  font-size:16px;
+  font-size:20px;
 }
 
 .search_icon {
   align-items: center;
   justify-content: center;
   margin: auto;
-  font-size: 32px;
+  font-size: 24px;
 }
 
 a#clear {
@@ -294,6 +296,7 @@ footer {
 }
 footer div {
   margin-bottom: 14px;
+  color:#000a;
 }
 
 @media screen and (max-width: 480px) {
@@ -374,5 +377,8 @@ footer div {
   }
   a{
     color:#52a4ff;
+  }
+  footer div{
+    color:#fffa;
   }
 }

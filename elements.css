@@ -1,5 +1,5 @@
 select {
-    background: url("./icons/arrow-bottom.svg") right no-repeat;
+    background: url("https://fonts.gstatic.com/s/i/materialiconsoutlined/arrow_drop_down/v1/24px.svg?download=true") right no-repeat;
     background-size: 20px;
     padding:5px;
     padding-right:25px;
@@ -42,12 +42,11 @@ select {
   }
   @media (prefers-color-scheme:dark) {
     input::placeholder {
-      color: #999;
+      color: #aaa;
     }
     select{
       filter:invert(1);
       color:#000;
-      z-index:-1;
     }
     input{
       background:#fff1;
