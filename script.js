@@ -238,7 +238,7 @@ function showVideo(contentID, type) {
             document.getElementById("video").src = "https://embed.nicovideo.jp/watch/" + contentID + "?jsapi=1&playerId=1";
             break;
         case "youtube":
-            document.getElementById("video").src = "https://www.youtube.com/embed/" + contentID + "?enablejsapi=1&autoplay=1";
+            document.getElementById("video").src = "https://www.youtube-nocookie.com/embed/" + contentID + "?enablejsapi=1&autoplay=1";
             break;
     }
 
