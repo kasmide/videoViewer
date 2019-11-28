@@ -365,10 +365,10 @@ footer div {
 		color: #fff;
 	}
 	body {
-		background: #222;
+		background: #31323a;
 	}
 	#searchUI {
-		background: #444e;
+		background: #fff1;
 	}
 	.result p {
 		color: #fff;
@@ -378,5 +378,8 @@ footer div {
 	}
 	footer div {
 		color: #fffa;
+	}
+	#welcome p {
+		color: #fff5;
 	}
 }
