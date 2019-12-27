@@ -299,6 +299,10 @@ footer div {
 	color: #000a;
 }
 
+footer div p{
+	color: #000a;
+}
+
 @media screen and (max-width: 480px) {
 	#searchUI {
 		flex-wrap: wrap;
@@ -379,6 +383,9 @@ footer div {
 		color: #52a4ff;
 	}
 	footer div {
+		color: #fffa;
+	}
+	footer div p{
 		color: #fffa;
 	}
 	#welcome p {

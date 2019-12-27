@@ -1,5 +1,8 @@
-youtubeKey = "AIzaSyBW1cZ-ehzqJ0PhClmNQFEu9RoDuqRQoD8";
-window.onload = function() {
+window.onload = function () {
+	if (deployed_revision != null) {
+		this.document.getElementById("appinfo").innerHTML+=" ("+deployed_revision+")"
+	}
+	
 	if (document.getElementById("Search").value == "") {
 		document.getElementById("clear").style.display = "none";
 	} else {

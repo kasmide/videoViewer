@@ -3,7 +3,8 @@
 pages:
   stage: deploy
   script:
-    - echo "Patching script.js"&&sed -i -e "s/AIzaSyBW1cZ-ehzqJ0PhClmNQFEu9RoDuqRQoD8/AIzaSyDM4gXM9reVQCOj18XQ2wEh_eIgK7leL3E/g" script.js
+    - echo var youtubeKey = \"$YOUTUBE_API_KEY\"\;>>config.js
+    - echo var deployed_revision = \"r$(git rev-list --count HEAD).$(git rev-parse --short HEAD)\"\;>>config.js
     - mkdir .public
     - cp -r * .public
     - mv .public public
