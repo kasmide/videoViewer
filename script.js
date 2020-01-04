@@ -1,93 +1,91 @@
 window.onload = function () {
 	if (deployed_revision != null) {
-		this.document.getElementById("appinfo").innerHTML+=" ("+deployed_revision+")"
+		this.document.getElementById("appinfo").innerHTML += " (" + deployed_revision + ")"
 	}
-	
+
 	if (document.getElementById("Search").value == "") {
 		document.getElementById("clear").style.display = "none";
 	} else {
 		document.getElementById("clear").style.display = "flex";
 	}
-	document.getElementById("Search").oninput = function() {
+	document.getElementById("Search").oninput = function () {
 		if (document.getElementById("Search").value == "") {
 			document.getElementById("clear").style.display = "none";
 		} else {
 			document.getElementById("clear").style.display = "flex";
 		}
 	};
-	document.getElementById("Search").onchange = search();
 };
 
-function search() {
+function serviceMenuChange() {
 	switch (document.getElementById("service").value) {
 		case "nico":
 			document.getElementById("searchOptions_nico").style = "display:flex";
 			document.getElementById("searchOptions_yt").style = "display:none";
+			document.getElementById("Search").disabled = false;
+			search();
 			break;
 		case "youtube":
 			document.getElementById("searchOptions_yt").style = "display:flex";
 			document.getElementById("searchOptions_nico").style = "display:none";
+			document.getElementById("Search").disabled = false;
+			search()
 			break;
 		case "bookmark":
 			document.getElementById("searchOptions_nico").style = "display:none";
 			document.getElementById("searchOptions_yt").style = "display:none";
+			document.getElementById("Search").disabled = true;
+			showBookmark();
 			break;
 	}
-	document.getElementById("resultBox").innerHTML = "";
-	if (document.getElementById("service").value != "bookmark") {
-		document.getElementById("Search").disabled = false;
-		if (document.getElementById("Search").value != "") {
-			//URLが入力された場合
-			if (document.getElementById("Search").value.indexOf("://www.") != -1) {
-				contentUrl = document.getElementById("Search").value;
-				if (contentUrl.indexOf("://www.nicovideo.jp/") != -1) {
-					type = "nico";
-				}
-				if (contentUrl.indexOf("://www.youtube.com/") != -1) {
-					type = "youtube";
-				}
-				switch (type) {
-					case "nico":
-						if (contentUrl.indexOf("?") != -1) {
-							contentUrl = contentUrl.substring(0, contentUrl.indexOf("?"));
-						}
-						contentID = contentUrl.substring(contentUrl.indexOf("sm"));
-						showVideo(contentID, "nico");
-						break;
-					case "youtube":
-						contentID = contentUrl.substring(contentUrl.indexOf("watch?v=") + 8);
-						if (contentID.indexOf("&") != -1) {
-							contentID = contentID.substring(0, contentID.indexOf("&"));
-						}
-						showVideo(contentID, "youtube");
-						break;
-				}
-				//キーワードが入力された場合
-			} else {
+}
+
+function search() {
+		//URLが入力された場合
+		if (document.getElementById("Search").value.indexOf("://www.") != -1) {
+			contentUrl = document.getElementById("Search").value;
+			if (contentUrl.indexOf("://www.nicovideo.jp/") != -1) {
+				type = "nico";
+			}
+			if (contentUrl.indexOf("://www.youtube.com/") != -1) {
+				type = "youtube";
+			}
+			switch (type) {
+				case "nico":
+					if (contentUrl.indexOf("?") != -1) {
+						contentUrl = contentUrl.substring(0, contentUrl.indexOf("?"));
+					}
+					contentID = contentUrl.substring(contentUrl.indexOf("sm"));
+					showVideo(contentID, "nico");
+					break;
+				case "youtube":
+					contentID = contentUrl.substring(contentUrl.indexOf("watch?v=") + 8);
+					if (contentID.indexOf("&") != -1) {
+						contentID = contentID.substring(0, contentID.indexOf("&"));
+					}
+					showVideo(contentID, "youtube");
+					break;
+			}
+			//キーワードが入力された場合
+		} else {
+			if (document.getElementById("Search").value != "") {
+				document.getElementById("resultBox").innerHTML = "";
 				document.getElementById("welcome").style = "display:none";
 				switch (document.getElementById("service").value) {
 					case "nico":
-						document.getElementById("Search").disabled = false;
 						nicoSearch();
 						break;
 					case "youtube":
-						document.getElementById("Search").disabled = false;
 						youtubeSearch();
 						break;
 				}
-			}
-		} else document.getElementById("welcome").style = "display:block";
-	} else {
-		document.getElementById("Search").disabled = true;
-		showBookmark();
-	}
+			}else document.getElementById("welcome").style = "display:block";
+		}
 }
 function showBookmark() {
+	document.getElementById("resultBox").innerHTML = "";
 	var bookmark = JSON.parse(localStorage.getItem("bookmark"));
-	if (bookmark == null) {
-		bookmark = [];
-	}
-	if (bookmark.length != 0) {
+	if (bookmark != null && bookmark.length != 0) {
 		document.getElementById("welcome").style = "display:none";
 		for (i = 0; i != bookmark.length; i++) {
 			videoType = bookmark[i][0].substring(0, bookmark[i][0].indexOf("|"));
@@ -107,15 +105,15 @@ function youtubeSearch() {
 	xhr.open(
 		"GET",
 		"https://www.googleapis.com/youtube/v3/search?type=video&part=snippet&order=" +
-			document.getElementsByClassName("sort")[1].value +
-			"&relevanceLanguage=ja&regionCode=JP&videoEmbeddable=true&q=" +
-			document.getElementById("Search").value +
-			"&key=" +
-			youtubeKey +
-			"&maxResults=50"
+		document.getElementsByClassName("sort")[1].value +
+		"&relevanceLanguage=ja&regionCode=JP&videoEmbeddable=true&q=" +
+		document.getElementById("Search").value +
+		"&key=" +
+		youtubeKey +
+		"&maxResults=50"
 	);
 	xhr.responseType = "json";
-	xhr.onreadystatechange = function() {
+	xhr.onreadystatechange = function () {
 		if (xhr.readyState == 4) {
 			var data = xhr.response;
 			if (data != null) {
@@ -129,7 +127,7 @@ function youtubeSearch() {
 						} else {
 							alert(data.error.message);
 						}
-					} catch {}
+					} catch { }
 					if (data["pageInfo"]["totalResults"] != 0) {
 						if (data["pageInfo"]["totalResults"] >= 50) {
 							for (i = 0; i != 50; i++) {
@@ -172,7 +170,7 @@ function nicoSearch() {
 		true
 	);
 	xhr.responseType = "json";
-	xhr.onreadystatechange = function() {
+	xhr.onreadystatechange = function () {
 		if (xhr.readyState == 4) {
 			var data = xhr.response;
 			if (data != null) {
@@ -183,7 +181,7 @@ function nicoSearch() {
 						document.getElementById("welcome").style = "display:block";
 						return;
 					}
-				} catch {}
+				} catch { }
 				if (data["meta"]["totalCount"] != 0) {
 					if (data["meta"]["totalCount"] >= 50) {
 						for (i = 0; i != 50; i++) {
@@ -241,7 +239,6 @@ function showResult(contentID, title, videoType, thumb, desc) {
 	var result_info = document.createElement("div");
 	result_info.classList.add("result_info");
 	var titleElem = document.createElement("a");
-	titleElem.class = "result";
 	titleElem.href = "javascript:showVideo('" + contentID + "','" + videoType + "')";
 	titleElem.innerHTML = title;
 	result_info.appendChild(titleElem);
@@ -288,7 +285,7 @@ function showVideo(contentID, type) {
 function Close() {
 	document.getElementById("dialog").classList.replace("show", "hide");
 	document.getElementById("video").remove();
-	document.getElementById("dialog").addEventListener("animationend", function() {
+	document.getElementById("dialog").addEventListener("animationend", function () {
 		document.getElementById("dialog").removeEventListener("animationend", this);
 		document.getElementById("dialog").classList.remove("hide");
 	});
