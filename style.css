@@ -33,6 +33,7 @@ body {
 	grid-template-rows: 1fr auto;
 	display: grid;
 	min-height: 100vh;
+	background-color: #fefefe;
 }
 main {
 	display: grid;
@@ -93,7 +94,7 @@ main {
 #dialog.hide {
 	display: block;
 	top: 0;
-	animation: hide 300ms cubic-bezier(0.61, 0.16, 0.68, 1.03) 0s;
+	animation: hide 600ms cubic-bezier(.17,.84,.44,1) 0s;
 }
 
 @keyframes show {
@@ -112,13 +113,13 @@ main {
 
 @keyframes hide {
 	from {
-		height: 100vh;
+		height: 50vh;
 		width: 100vw;
 	}
 	to {
+		opacity: 0;
+		left: 0;
 		height: 0;
-		width: 0;
-		opacity: 0.5;
 	}
 }
 
@@ -375,7 +376,7 @@ footer div p{
 		background: #31323a;
 	}
 	#searchUI {
-		background-color: #36373fee;
+		background-color: #3a3b43ee;
 	}
 	.result p {
 		color: #fff;
