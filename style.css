@@ -29,6 +29,15 @@ a {
 	color: #777;
 	margin: 8px;
 }
+
+#nothing_found{
+	display:none;
+	text-align: center;
+	color: #fff9;
+	grid-row: 3;
+	margin: auto;
+}
+
 body {
 	grid-template-rows: 1fr auto;
 	display: grid;

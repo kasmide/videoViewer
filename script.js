@@ -77,6 +77,7 @@ function search() {
 		document.getElementById("resultBox").innerHTML = "";
 		if (document.getElementById("Search").value != "") {
 			document.getElementById("welcome").style = "display:none";
+			document.getElementById("nothing_found").style = "display:none";
 			switch (document.getElementById("service").value) {
 				case "nico":
 					nicoSearch();
@@ -85,14 +86,15 @@ function search() {
 					youtubeSearch();
 					break;
 			}
-		} else document.getElementById("welcome").style = "display:block";
+		}
 	}
 }
 function showBookmark() {
 	document.getElementById("resultBox").innerHTML = "";
 	var bookmark = JSON.parse(localStorage.getItem("bookmark"));
+	document.getElementById("welcome").style = "display:none";
+	document.getElementById("nothing_found").style = "display:none";
 	if (bookmark != null && bookmark.length != 0) {
-		document.getElementById("welcome").style = "display:none";
 		for (i = 0; i != bookmark.length; i++) {
 			videoType = bookmark[i][0].substring(0, bookmark[i][0].indexOf("|"));
 			contentID = bookmark[i][0].substring(bookmark[i][0].indexOf("|") + 1);
@@ -102,8 +104,7 @@ function showBookmark() {
 			showResult(contentID, title, videoType, thumb, desc);
 		}
 	} else {
-		document.getElementById("welcome").style = "display:block";
-		alert("ブックマークは空です");
+		document.getElementById("nothing_found").style = "display:block";
 	}
 }
 function youtubeSearch() {
@@ -128,7 +129,7 @@ function youtubeSearch() {
 					try {
 						if (data.error.errors[0].reason == "quotaExceeded") {
 							alert("YouTube Data API の制限に達しました。時間をあけて再度お試しください");
-							document.getElementById("welcome").style = "display:block";
+							document.getElementById("nothing_found").style = "display:block";
 							return;
 						} else {
 							alert(data.error.message);
@@ -157,11 +158,11 @@ function youtubeSearch() {
 							}
 						}
 					} else {
-						alert("検索結果は0件です");
+						document.getElementById("nothing_found").style = "display:block";
 					}
 				}
 			} else {
-				document.getElementById("welcome").style = "display:block";
+				document.getElementById("nothing_found").style = "display:block";
 				alert("YouTube Data API からデータを取得できませんでした。");
 			}
 		}
@@ -184,7 +185,7 @@ function nicoSearch() {
 				try {
 					if (data["ERROR"] == "NO_CONTENT_RECEIVED") {
 						alert("ニコニコ動画APIとプロキシサーバーの間での接続に問題が発生しました");
-						document.getElementById("welcome").style = "display:block";
+						document.getElementById("nothing_found").style = "display:block";
 						return;
 					}
 				} catch { }
@@ -203,7 +204,7 @@ function nicoSearch() {
 				}
 			} else {
 				alert("ニコニコ動画検索用のプロキシサーバーから検索結果を取得できませんでした。\nページをホストしている環境でPHPが実行可能か確認してください");
-				document.getElementById("welcome").style = "display:block";
+				document.getElementById("nothing_found").style = "display:block";
 			}
 		}
 	};
