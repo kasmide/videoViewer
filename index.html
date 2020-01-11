@@ -29,10 +29,16 @@
 			<form id="SearchForm" onsubmit="search();return false">
 				<input type="text" id="Search" value="" placeholder="検索..." />
 				<a id="clear" href="javascript:clear()"><i class="material-icons clear_icon">clear</i></a>
+				<button id="Search" onclick="search()">
+					<i class="material-icons search_icon">search</i>
+				</button>
 			</form>
-			<button id="Search" onclick="search()">
-				<i class="material-icons search_icon">search</i>
-			</button>
+
+			<div id="bookmark_menu">
+				<button onclick="bookmark_export()"><i class="material-icons button_icon">cloud_download</i>エクスポート</button>
+				<button onclick="bookmark_import()"><i class="material-icons button_icon">cloud_upload</i>インポート</button>
+				<button onclick="bookmark_delall()"><i class="material-icons">delete</i>すべて削除</button>
+			</div>
 		</div>
 
 		<main>
@@ -63,6 +69,9 @@
 						<option value="viewCount">再生回数</option>
 					</select>
 				</div>
+			</div>
+			<div id="options_bookmark" class="searchOptions">
+
 			</div>
 			<!--検索結果-->
 			<div id="resultBox"></div>

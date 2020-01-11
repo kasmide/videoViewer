@@ -134,6 +134,13 @@ select#service {
 	align-items: center;
 }
 
+.button_icon {
+	align-items: center;
+	justify-content: center;
+	margin: auto;
+	font-size: 24px;
+}
+
 #searchUI {
 	z-index: 1;
 	position: fixed;
@@ -143,7 +150,7 @@ select#service {
 	width: 100%;
 	box-shadow: 0px 0px 15px #0002;
 	border-radius: 0px 0px 5px 5px;
-	grid-template-columns: calc(8em + 20px) 1fr 50px;
+	grid-template-columns: calc(8em + 20px) 1fr;
 	background: #fffe;
 	backdrop-filter: blur(10px);
 	-webkit-backdrop-filter: blur(10px);
@@ -154,10 +161,13 @@ input#Search {
 	height: 37px;
 	padding: 6px 30px 6px 10px;
 	width: 100%;
+	grid-column:1;
 }
 form#SearchForm {
 	grid-column: 2;
-	display: flex;
+	display: grid;
+	align-items: center;
+	grid-template-columns: 1fr 0 50px;
 }
 
 .clear_icon {
@@ -180,14 +190,27 @@ a#clear {
 	left: -25px;
 	width: 0px;
 	color: #555;
+	grid-column: 2;
 }
 
 button#Search {
 	grid-column: 3;
-	display: flex;
 	width: 40px;
 	height: 40px;
 	margin: 5px;
+}
+
+#searchUI button {
+	display: flex;
+	align-items: center;
+}
+#searchUI button > i{
+	font-size: 20px;
+	margin:0px 5px 0px 5px;
+}
+#bookmark_menu {
+	display: none;
+	flex-direction: row-reverse;
 }
 
 main {

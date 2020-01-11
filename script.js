@@ -8,6 +8,7 @@ window.onload = function () {
 	} else {
 		document.getElementById("clear").style.display = "flex";
 	}
+
 	document.getElementById("Search").oninput = function () {
 		if (document.getElementById("Search").value == "") {
 			document.getElementById("clear").style.display = "none";
@@ -15,72 +16,77 @@ window.onload = function () {
 			document.getElementById("clear").style.display = "flex";
 		}
 	};
+
+	this.serviceMenuChange();
 };
 
 function serviceMenuChange() {
 	switch (document.getElementById("service").value) {
 		case "nico":
-			document.getElementById("searchOptions_nico").style = "display:flex";
+			document.getElementById("searchOptions_nico").style = "";
 			document.getElementById("searchOptions_yt").style = "display:none";
-			document.getElementById("Search").disabled = false;
+			this.document.getElementById("SearchForm").style = "";
+			this.document.getElementById("bookmark_menu").style = "display:none";
 			search();
 			break;
 		case "youtube":
-			document.getElementById("searchOptions_yt").style = "display:flex";
+			document.getElementById("searchOptions_yt").style = "";
 			document.getElementById("searchOptions_nico").style = "display:none";
-			document.getElementById("Search").disabled = false;
+			this.document.getElementById("SearchForm").style = "";
+			this.document.getElementById("bookmark_menu").style = "display:none";
 			search()
 			break;
 		case "bookmark":
 			document.getElementById("searchOptions_nico").style = "display:none";
 			document.getElementById("searchOptions_yt").style = "display:none";
-			document.getElementById("Search").disabled = true;
+			this.document.getElementById("SearchForm").style = "display:none";
+			this.document.getElementById("bookmark_menu").style = "display:flex";
 			showBookmark();
 			break;
 	}
 }
 
 function search() {
-		//URLが入力された場合
-		if (document.getElementById("Search").value.indexOf("://www.") != -1) {
-			contentUrl = document.getElementById("Search").value;
-			if (contentUrl.indexOf("://www.nicovideo.jp/") != -1) {
-				type = "nico";
-			}
-			if (contentUrl.indexOf("://www.youtube.com/") != -1) {
-				type = "youtube";
-			}
-			switch (type) {
+	//URLが入力された場合
+	if (document.getElementById("Search").value.indexOf("://www.") != -1) {
+		contentUrl = document.getElementById("Search").value;
+		if (contentUrl.indexOf("://www.nicovideo.jp/") != -1) {
+			type = "nico";
+		}
+		if (contentUrl.indexOf("://www.youtube.com/") != -1) {
+			type = "youtube";
+		}
+		switch (type) {
+			case "nico":
+				if (contentUrl.indexOf("?") != -1) {
+					contentUrl = contentUrl.substring(0, contentUrl.indexOf("?"));
+				}
+				contentID = contentUrl.substring(contentUrl.indexOf("sm"));
+				showVideo(contentID, "nico");
+				break;
+			case "youtube":
+				contentID = contentUrl.substring(contentUrl.indexOf("watch?v=") + 8);
+				if (contentID.indexOf("&") != -1) {
+					contentID = contentID.substring(0, contentID.indexOf("&"));
+				}
+				showVideo(contentID, "youtube");
+				break;
+		}
+		//キーワードが入力された場合
+	} else {
+		document.getElementById("resultBox").innerHTML = "";
+		if (document.getElementById("Search").value != "") {
+			document.getElementById("welcome").style = "display:none";
+			switch (document.getElementById("service").value) {
 				case "nico":
-					if (contentUrl.indexOf("?") != -1) {
-						contentUrl = contentUrl.substring(0, contentUrl.indexOf("?"));
-					}
-					contentID = contentUrl.substring(contentUrl.indexOf("sm"));
-					showVideo(contentID, "nico");
+					nicoSearch();
 					break;
 				case "youtube":
-					contentID = contentUrl.substring(contentUrl.indexOf("watch?v=") + 8);
-					if (contentID.indexOf("&") != -1) {
-						contentID = contentID.substring(0, contentID.indexOf("&"));
-					}
-					showVideo(contentID, "youtube");
+					youtubeSearch();
 					break;
 			}
-			//キーワードが入力された場合
-		} else {
-			if (document.getElementById("Search").value != "") {
-				document.getElementById("resultBox").innerHTML = "";
-				document.getElementById("welcome").style = "display:none";
-				switch (document.getElementById("service").value) {
-					case "nico":
-						nicoSearch();
-						break;
-					case "youtube":
-						youtubeSearch();
-						break;
-				}
-			}else document.getElementById("welcome").style = "display:block";
-		}
+		} else document.getElementById("welcome").style = "display:block";
+	}
 }
 function showBookmark() {
 	document.getElementById("resultBox").innerHTML = "";
@@ -329,4 +335,72 @@ function bookmark_del(service, contentID) {
 	}
 	event.target.firstChild.innerText = "bookmark_border";
 	event.target.setAttribute("onclick", 'bookmark_add("' + service + '","' + contentID + '")');
+}
+
+function bookmark_export() {
+	if (localStorage.getItem("bookmark") != null) {
+		var a = document.createElement("a");
+		a.href = URL.createObjectURL(new Blob([localStorage.getItem("bookmark")], {
+			type: "application/json"
+		}));
+		//a.download = "bookmark.json";
+		a.click();
+	} else {
+		alert("ブックマークは空です");
+	}
+}
+function bookmark_import() {
+	var input = document.createElement("input");
+	input.type = "file";
+	input.accept = "application/json";
+	input.addEventListener("change", function () {
+		if (input.files.length != 0) {
+			if (input.files[0].type == "application/json") {
+				var reader = new FileReader();
+				reader.readAsText(input.files[0]);
+				reader.addEventListener("load", function () {
+					var added = 0;
+					var ignored = 0;
+					var bookmark = JSON.parse(localStorage.getItem("bookmark"));
+					if (bookmark == null) {
+						bookmark = [];
+					}
+					try {
+						var bookmarkToImport = JSON.parse(reader.result);
+					} catch (e) {
+						alert("エラー:\n" + e.message);
+						return;
+					}
+					for (i = 0; i != bookmarkToImport.length; i++) {
+						var found = false;
+						for (var n = 0; n != bookmark.length; n++) {
+							if (bookmark[n].indexOf(bookmarkToImport[i][0]) != -1) {
+								ignored++;
+								found = true;
+								break;
+							}
+						}
+						if (!found) {
+							bookmark.push(bookmarkToImport[i]);
+							added++;
+						}
+						console.log(bookmarkToImport[i][0] + bookmark[0].indexOf(bookmarkToImport[i][0]));
+					}
+					localStorage.setItem("bookmark", JSON.stringify(bookmark));
+					showBookmark();
+					alert("インポートが完了しました。\n\n結果:\n追加されたアイテム数: " + added + "\nスキップされたアイテム数: " + ignored);
+				});
+			} else {
+				alert("選択されたファイルの MIME タイプは application/json ではなく " + input.files[0].type + " です。");
+			}
+		}
+	})
+	input.click();
+
+}
+function bookmark_delall() {
+	if (confirm("すべてのブックマークを削除します。よろしいですか？")) {
+		localStorage.removeItem("bookmark");
+		showBookmark();
+	};
 }

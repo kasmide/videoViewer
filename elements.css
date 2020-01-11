@@ -13,16 +13,16 @@ select:focus {
 button {
 	border-radius: 3px;
 	transition: all 300ms 0s ease-in;
+	padding:5px;
+	margin:5px;
 }
 
 button:hover {
 	background: #0001;
-	transition: all 300ms 0s ease-in;
 }
 
 button:active {
 	background: #0002;
-	transition: all 100ms 0s ease-out;
 }
 
 input {
@@ -52,5 +52,12 @@ input[disabled] {
 	}
 	input:focus{
 		border-bottom: solid 2px #fff4;
+	}
+	button:hover {
+		background: #fff1;
+	}
+	
+	button:active {
+		background: #fff2;
 	}
 }
