@@ -136,6 +136,8 @@ select#service {
 .searchOptions {
 	display: flex;
 	flex-direction: row-reverse;
+	position: absolute;
+	width: 100%;
 }
 .searchOptions div {
 	margin-right: 10px;
@@ -336,7 +338,7 @@ footer div p{
 @media screen and (max-width: 480px) {
 	#searchUI {
 		flex-wrap: wrap;
-		grid-template-rows: 0.7fr 1fr;
+		grid-template-rows: 1fr 1fr;
 		position: inherit;
 	}
 
@@ -353,9 +355,11 @@ footer div p{
 	.searchOptions {
 		flex-direction: column;
 		margin-left: 10px;
+		width: calc(100% - 20px);
 	}
 	.searchOptions div {
 		display: grid;
+		margin-right: 0;
 		grid-template-columns: auto 1fr;
 	}
 	#searchUI {
@@ -369,19 +373,17 @@ footer div p{
 		grid-row: 2;
 		grid-column: 1/3;
 		margin-left: 10px;
+		grid-template-columns: 1fr 0px 50px;
 	}
 	button#Search {
-		grid-row: 2;
+		grid-column: 3;
 	}
 	select#service {
-		grid-column: 1/5;
+		grid-column: 1/3;
 		width: calc(100% - 1em);
 	}
 	a#clear {
-		grid-row: 2;
-	}
-	a#clear img {
-		grid-row: 2;
+		grid-column: 2;
 	}
 	div#resultBox {
 		grid-row: 2;

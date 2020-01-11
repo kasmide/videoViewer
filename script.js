@@ -18,6 +18,9 @@ window.onload = function () {
 	};
 
 	this.serviceMenuChange();
+	if (document.getElementById("service").value == "bookmark") {
+		showBookmark();
+	}
 };
 
 function serviceMenuChange() {
@@ -27,21 +30,18 @@ function serviceMenuChange() {
 			document.getElementById("searchOptions_yt").style = "display:none";
 			this.document.getElementById("SearchForm").style = "";
 			this.document.getElementById("bookmark_menu").style = "display:none";
-			search();
 			break;
 		case "youtube":
 			document.getElementById("searchOptions_yt").style = "";
 			document.getElementById("searchOptions_nico").style = "display:none";
 			this.document.getElementById("SearchForm").style = "";
 			this.document.getElementById("bookmark_menu").style = "display:none";
-			search()
 			break;
 		case "bookmark":
 			document.getElementById("searchOptions_nico").style = "display:none";
 			document.getElementById("searchOptions_yt").style = "display:none";
 			this.document.getElementById("SearchForm").style = "display:none";
 			this.document.getElementById("bookmark_menu").style = "display:flex";
-			showBookmark();
 			break;
 	}
 }
@@ -75,6 +75,9 @@ function search() {
 		//キーワードが入力された場合
 	} else {
 		document.getElementById("resultBox").innerHTML = "";
+		if (document.getElementById("service").value == "bookmark") {
+			showBookmark();
+		}
 		if (document.getElementById("Search").value != "") {
 			document.getElementById("welcome").style = "display:none";
 			document.getElementById("nothing_found").style = "display:none";
@@ -86,14 +89,11 @@ function search() {
 					youtubeSearch();
 					break;
 			}
-		}
+		} document.getElementById("nothing_found").style = "display:block"; document.getElementById("welcome").style = "display:none";
 	}
 }
 function showBookmark() {
-	document.getElementById("resultBox").innerHTML = "";
 	var bookmark = JSON.parse(localStorage.getItem("bookmark"));
-	document.getElementById("welcome").style = "display:none";
-	document.getElementById("nothing_found").style = "display:none";
 	if (bookmark != null && bookmark.length != 0) {
 		for (i = 0; i != bookmark.length; i++) {
 			videoType = bookmark[i][0].substring(0, bookmark[i][0].indexOf("|"));
@@ -107,6 +107,7 @@ function showBookmark() {
 		document.getElementById("nothing_found").style = "display:block";
 	}
 }
+
 function youtubeSearch() {
 	xhr = new XMLHttpRequest();
 	xhr.open(
