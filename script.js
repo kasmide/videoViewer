@@ -346,7 +346,7 @@ function bookmark_export() {
 		a.href = URL.createObjectURL(new Blob([localStorage.getItem("bookmark")], {
 			type: "application/json"
 		}));
-		//a.download = "bookmark.json";
+		a.download = "bookmark.json";
 		a.click();
 	} else {
 		alert("ブックマークは空です");
