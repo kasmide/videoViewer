@@ -105,6 +105,7 @@ function showBookmark() {
 		}
 	} else {
 		document.getElementById("nothing_found").style = "display:block";
+		document.getElementById("welcome").style = "display:none";
 	}
 }
 
