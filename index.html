@@ -6,7 +6,7 @@
 		<script type="text/javascript" src="config.js"></script>
 		<script type="text/javascript" src="script.js"></script>
 		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/ress/dist/ress.min.css" />
-		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+		<link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="style.css" />
 		<link rel="stylesheet" type="text/css" href="elements.css" />
 	</head>
@@ -15,7 +15,7 @@
 		<!--ポップアッププレイヤー-->
 		<div id="dialog" class="" onclick="Close()">
 			<a id="close" href="javascript:Close()">
-				<i class="material-icons close_icon">close</i>
+				<i class="ri-close-line"></i>
 			</a>
 		</div>
 
@@ -28,16 +28,16 @@
 			</select>
 			<form id="SearchForm" onsubmit="search();return false">
 				<input type="text" id="Search" value="" placeholder="検索..." />
-				<a id="clear" href="javascript:clear()"><i class="material-icons clear_icon">clear</i></a>
+				<a id="clear" href="javascript:clear()"><i class="ri-delete-back-2-fill clear_icon"></i></a>
 				<button id="Search" onclick="search()">
-					<i class="material-icons search_icon">search</i>
+					<i class="ri-search-line"></i>
 				</button>
 			</form>
 
 			<div id="bookmark_menu">
-				<button onclick="bookmark_export()"><i class="material-icons button_icon">cloud_download</i><p>エクスポート</p></button>
-				<button onclick="bookmark_import()"><i class="material-icons button_icon">cloud_upload</i><p>インポート</p></button>
-				<button onclick="bookmark_delall()"><i class="material-icons">delete</i><p>すべて削除</p></button>
+				<button onclick="bookmark_export()"><i class="ri-download-line"></i><p>エクスポート</p></button>
+				<button onclick="bookmark_import()"><i class="ri-upload-line"></i><p>インポート</p></button>
+				<button onclick="bookmark_delall()"><i class="ri-delete-bin-line"></i><p>すべて削除</p></button>
 			</div>
 		</div>
 
