@@ -18,9 +18,6 @@ window.onload = function () {
 	};
 
 	this.serviceMenuChange();
-	if (document.getElementById("service").value == "bookmark") {
-		showBookmark();
-	}
 };
 
 function serviceMenuChange() {
@@ -75,12 +72,12 @@ function search() {
 		//キーワードが入力された場合
 	} else {
 		document.getElementById("resultBox").innerHTML = "";
+		document.getElementById("welcome").style = "display:none";
+		document.getElementById("nothing_found").style = "display:none";
 		if (document.getElementById("service").value == "bookmark") {
 			showBookmark();
 		}
-		if (document.getElementById("Search").value != "") {
-			document.getElementById("welcome").style = "display:none";
-			document.getElementById("nothing_found").style = "display:none";
+		else if (document.getElementById("Search").value != "") {
 			switch (document.getElementById("service").value) {
 				case "nico":
 					nicoSearch();
@@ -89,7 +86,7 @@ function search() {
 					youtubeSearch();
 					break;
 			}
-		} document.getElementById("nothing_found").style = "display:block"; document.getElementById("welcome").style = "display:none";
+		} else { document.getElementById("nothing_found").style = "display:block"; document.getElementById("welcome").style = "display:none"; }
 	}
 }
 function showBookmark() {
@@ -403,6 +400,7 @@ function bookmark_import() {
 function bookmark_delall() {
 	if (confirm("すべてのブックマークを削除します。よろしいですか？")) {
 		localStorage.removeItem("bookmark");
+		document.getElementById("resultBox").innerHTML = "";
 		showBookmark();
 	};
 }
