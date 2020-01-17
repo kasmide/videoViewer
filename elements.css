@@ -1,6 +1,6 @@
 select {
-	background: url("https://fonts.gstatic.com/s/i/materialiconsoutlined/arrow_drop_down/v1/24px.svg?download=true") right no-repeat;
-	background-size: 20px;
+	background: url("https://cdn.jsdelivr.net/npm/remixicon@latest/icons/System/arrow-drop-down-line.svg") right no-repeat;
+	background-size: 24px;
 	padding: 5px;
 	padding-right: 25px;
 	border-bottom: solid 2px #0002;
