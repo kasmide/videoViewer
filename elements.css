@@ -1,3 +1,9 @@
+body {
+	background-color: #fefefe;
+}
+*{
+	color: #444;
+}
 select {
 	background: url("https://cdn.jsdelivr.net/npm/remixicon@latest/icons/System/arrow-drop-down-line.svg") right no-repeat;
 	background-size: 24px;
@@ -28,6 +34,8 @@ button:active {
 input {
 	border-bottom: solid 2px #0002;
 	transition: all 300ms 0s ease-out;
+	padding: 5px;
+	margin: 5px;
 }
 input:focus {
 	border-bottom: solid 2px #0004;
@@ -40,6 +48,12 @@ input[disabled] {
 	box-shadow: 0;
 }
 @media (prefers-color-scheme: dark) {
+	* {
+		color: #fff;
+	}
+	body {
+		background: #31323a;
+	}
 	input::placeholder {
 		color: #aaa;
 	}

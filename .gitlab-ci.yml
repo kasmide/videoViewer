@@ -3,7 +3,7 @@
 pages:
   stage: deploy
   script:
-    - echo const youtubeKey = \"$YOUTUBE_API_KEY\"\;>>config.js
+    - echo let youtubeKey = \"$YOUTUBE_API_KEY\"\;>>config.js
     - echo const deployed_revision = \"r$(git rev-list --count HEAD).$(git rev-parse --short HEAD)\"\;>>config.js
     - mkdir .public
     - cp -r * .public

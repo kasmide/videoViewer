@@ -1,12 +1,13 @@
 var config = JSON.parse(localStorage.getItem("config"));
-if (!config) {
-	config = {}
-}
+if (!config) config = {}
 if (!config["youtube"]) {
-	config["youtube"] = {};
-	config["youtube"]["searchProvider"] = "youtube"
-	config["youtube"]["viewer"] = "https://www.youtube-nocookie.com/embed/%s"
+  config["youtube"] = {};
 }
+if (!config["youtube"]["searchProvider"]) config["youtube"]["searchProvider"] = "youtube";
+if (!config["youtube"]["viewer"]) config["youtube"]["viewer"] = "https://www.youtube-nocookie.com/embed/%s";
+if (!config["youtube"]["invidiousInstance"] || config["youtube"]["invidiousInstance"]=="") config["youtube"]["invidiousInstance"] = "https://invidio.us/";
+if (!config["youtube"]["apikey"] || config["youtube"]["apikey"] == "") config["youtube"]["apikey"] = youtubeKey;
+localStorage.setItem("config", JSON.stringify(config));
 
 window.onload = function () {
 	if (deployed_revision != null) {
@@ -130,7 +131,7 @@ function invidiousSearch(page) {
 	xhr = new XMLHttpRequest();
 	xhr.open(
 		"GET",
-		"https://invidio.us/api/v1/search?&page=" +
+		config["youtube"]["invidiousInstance"]+"api/v1/search?&page=" +
 		page +
 		"&index=1&hl=ja&type=video&sort_by=relevance" +
 		"&relevanceLanguage=ja&q=" +
@@ -186,7 +187,7 @@ function youtubeSearch() {
 		"&relevanceLanguage=ja&regionCode=JP&videoEmbeddable=true&q=" +
 		document.getElementById("Search").value +
 		"&key=" +
-		youtubeKey +
+		config["youtube"]["apikey"] +
 		"&maxResults=50"
 	);
 	xhr.responseType = "json";
@@ -354,7 +355,7 @@ function showVideo(contentID, type) {
 			break;
 		case "youtube":
 			if (!config["youtube"]["viewer"]) config["youtube"]["viewer"] = "https://www.youtube-nocookie.com/embed/%s"
-			document.getElementById("video").src = config["youtube"]["viewer"].replace("%s", contentID);
+			document.getElementById("video").src = config["youtube"]["viewer"].replace("%s", contentID).replace("%i",config["youtube"]["invidiousInstance"]);
 			break;
 	}
 }
