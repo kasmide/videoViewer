@@ -1,3 +1,13 @@
+var config = JSON.parse(localStorage.getItem("config"));
+if (!config) {
+	config = {}
+}
+if (!config["youtube"]) {
+	config["youtube"] = {};
+	config["youtube"]["searchProvider"] = "youtube"
+	config["youtube"]["viewer"] = "https://www.youtube-nocookie.com/embed/%s"
+}
+
 window.onload = function () {
 	if (deployed_revision != null) {
 		this.document.getElementById("appinfo").innerHTML += " (" + deployed_revision + ")"
@@ -83,7 +93,17 @@ function search() {
 					nicoSearch();
 					break;
 				case "youtube":
-					youtubeSearch();
+					switch (config["youtube"]["searchProvider"]) {
+						case "invidious":
+							invidiousSearch(0);
+							break;
+						case "youtube":
+							youtubeSearch();
+							break;
+						default:
+							youtubeSearch();
+							break;
+					}
 					break;
 			}
 		} else { document.getElementById("nothing_found").style = "display:block"; document.getElementById("welcome").style = "display:none"; }
@@ -104,6 +124,57 @@ function showBookmark() {
 		document.getElementById("nothing_found").style = "display:block";
 		document.getElementById("welcome").style = "display:none";
 	}
+}
+
+function invidiousSearch(page) {
+	xhr = new XMLHttpRequest();
+	xhr.open(
+		"GET",
+		"https://invidio.us/api/v1/search?&page=" +
+		page +
+		"&index=1&hl=ja&type=video&sort_by=relevance" +
+		"&relevanceLanguage=ja&q=" +
+		document.getElementById("Search").value
+	);
+	xhr.responseType = "json";
+	xhr.onreadystatechange = function () {
+		if (xhr.readyState == 4) {
+			var data = xhr.response;
+			if (data != null) {
+				{
+					if (data.length != 0) {
+						if (data.length >= 50) {
+							for (i = 0; i != 50; i++) {
+								showResult(
+									data[i]["videoId"],
+									data[i]["title"],
+									"youtube",
+									data[i]["videoThumbnails"][1]["url"],
+									data[i]["description"]
+								);
+							}
+						} else {
+							for (i = 0; i != data.length; i++) {
+								showResult(
+									data[i]["videoId"],
+									data[i]["title"],
+									"youtube",
+									data[i]["videoThumbnails"][1]["url"],
+									data[i]["description"]
+								);
+							}
+						}
+					} else {
+						document.getElementById("nothing_found").style = "display:block";
+					}
+				}
+			} else {
+				document.getElementById("nothing_found").style = "display:block";
+				alert("Invidious API からデータを取得できませんでした。");
+			}
+		}
+	};
+	xhr.send("");
 }
 
 function youtubeSearch() {
@@ -282,7 +353,8 @@ function showVideo(contentID, type) {
 			document.getElementById("video").src = "https://embed.nicovideo.jp/watch/" + contentID + "?jsapi=1&playerId=1";
 			break;
 		case "youtube":
-			document.getElementById("video").src = "https://www.youtube-nocookie.com/embed/" + contentID + "?enablejsapi=1&autoplay=1";
+			if (!config["youtube"]["viewer"]) config["youtube"]["viewer"] = "https://www.youtube-nocookie.com/embed/%s"
+			document.getElementById("video").src = config["youtube"]["viewer"].replace("%s", contentID);
 			break;
 	}
 }
@@ -316,7 +388,7 @@ function bookmark_add(service, contentID) {
 	} else {
 		console.error(contentID + ":すでに保存されています");
 	}
-	event.target.firstChild.classList.replace("ri-bookmark-line","ri-bookmark-fill");
+	event.target.firstChild.classList.replace("ri-bookmark-line", "ri-bookmark-fill");
 	event.target.setAttribute("onclick", 'bookmark_del("' + service + '","' + contentID + '")');
 }
 
@@ -332,7 +404,7 @@ function bookmark_del(service, contentID) {
 			break;
 		}
 	}
-	event.target.firstChild.classList.replace("ri-bookmark-fill","ri-bookmark-line");
+	event.target.firstChild.classList.replace("ri-bookmark-fill", "ri-bookmark-line");
 	event.target.setAttribute("onclick", 'bookmark_add("' + service + '","' + contentID + '")');
 }
 
