@@ -3,6 +3,7 @@ body {
 }
 *{
 	color: #444;
+	font-family: sans-serif;
 }
 select {
 	background: url("https://cdn.jsdelivr.net/npm/remixicon@latest/icons/System/arrow-drop-down-line.svg") right no-repeat;

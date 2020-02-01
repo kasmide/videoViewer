@@ -1,16 +1,6 @@
 * {
-	font-family: sans-serif;
-	scrollbar-color: #0001 #fffa;
 	scrollbar-width: thin;
 	border-radius: 0;
-}
-*:hover {
-	scrollbar-color: #0002 #fffa;
-	scrollbar-width: thin;
-}
-*:active {
-	scrollbar-color: #0004 #fffa;
-	scrollbar-width: thin;
 }
 
 a {
