@@ -37,11 +37,6 @@ main {
 	grid-row: 1;
 	grid-template-rows: auto auto 1fr;
 }
-/*クソダサ枠線を勝手に描画するブラウザを許すな*/
-
-*:focus {
-	outline: none !important;
-}
 
 #video {
 	display: block;
