@@ -5,6 +5,7 @@
   <title>設定 - VideoViewer</title>
   <meta charset="utf-8" name="viewport" content="width=device-width" />
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/ress/dist/ress.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="../elements.css" />
   <link rel="stylesheet" type="text/css" href="style.css" />
   <script src="../config.js"></script>
@@ -13,7 +14,9 @@
 
 <body>
   <header>
+    <button onclick="history.back()"><i class="ri-arrow-left-line"></i></button>
     <h1>設定</h1>
+    <button onclick="reset()"><i class="ri-restart-line"></i>リセット</button>
   </header>
   <main>
     <h2>YouTube</h2>
@@ -34,9 +37,6 @@
       </select>
     </div>
   </main>
-  <footer>
-    <button onclick="reset()">リセット</button>
-  </footer>
 </body>
 
 </html>
