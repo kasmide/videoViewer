@@ -1,12 +1,10 @@
 var config = JSON.parse(localStorage.getItem("config"));
 if (!config) config = {}
-if (!config["youtube"]) {
-  config["youtube"] = {};
-}
+if (!config["youtube"]) config["youtube"] = {}
 if (!config["youtube"]["searchProvider"]) config["youtube"]["searchProvider"] = "youtube";
 if (!config["youtube"]["viewer"]) config["youtube"]["viewer"] = "https://www.youtube-nocookie.com/embed/%s";
-if (!config["youtube"]["invidiousInstance"] || config["youtube"]["invidiousInstance"]=="") config["youtube"]["invidiousInstance"] = "https://invidio.us/";
-if (!config["youtube"]["apikey"] || config["youtube"]["apikey"] == "") config["youtube"]["apikey"] = youtubeKey;
+if (!config["youtube"]["invidiousInstance"]) config["youtube"]["invidiousInstance"] = "https://invidio.us/";
+if (!config["youtube"]["apikey"]) config["youtube"]["apikey"] = youtubeKey;
 if (!config["nicovideo"]["proxyUrl"]) config["nicovideo"]["proxyUrl"] = "./p.php"
 localStorage.setItem("config", JSON.stringify(config));
 
@@ -132,7 +130,7 @@ function invidiousSearch(page) {
 	xhr = new XMLHttpRequest();
 	xhr.open(
 		"GET",
-		config["youtube"]["invidiousInstance"]+"api/v1/search?&page=" +
+		config["youtube"]["invidiousInstance"] + "api/v1/search?&page=" +
 		page +
 		"&index=1&hl=ja&type=video&sort_by=relevance" +
 		"&relevanceLanguage=ja&q=" +
@@ -356,7 +354,7 @@ function showVideo(contentID, type) {
 			break;
 		case "youtube":
 			if (!config["youtube"]["viewer"]) config["youtube"]["viewer"] = "https://www.youtube-nocookie.com/embed/%s"
-			document.getElementById("video").src = config["youtube"]["viewer"].replace("%s", contentID).replace("%i",config["youtube"]["invidiousInstance"]);
+			document.getElementById("video").src = config["youtube"]["viewer"].replace("%s", contentID).replace("%i", config["youtube"]["invidiousInstance"]);
 			break;
 	}
 }

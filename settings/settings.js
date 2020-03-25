@@ -1,14 +1,10 @@
 var config = JSON.parse(localStorage.getItem("config"));
 if (!config) config = {}
-if (!config["youtube"]) {
-  config["youtube"] = {};
-}
+if (!config["youtube"]) config["youtube"] = {}
 if (!config["youtube"]["searchProvider"]) config["youtube"]["searchProvider"] = "youtube";
 if (!config["youtube"]["viewer"]) config["youtube"]["viewer"] = "https://www.youtube-nocookie.com/embed/%s";
-if (!config["youtube"]["invidiousInstance"] || config["youtube"]["invidiousInstance"] == "") config["youtube"]["invidiousInstance"] = "https://invidio.us/";
-if (!config["youtube"]["apiKey"] || config["youtube"]["apiKey"] == "") config["youtube"]["apiKey"] = youtubeKey;
-localStorage.setItem("config", JSON.stringify(config));
-if (!config["nicovideo"]) config["nicovideo"] = {};
+if (!config["youtube"]["invidiousInstance"]) config["youtube"]["invidiousInstance"] = "https://invidio.us/";
+if (!config["youtube"]["apikey"]) config["youtube"]["apikey"] = youtubeKey;
 if (!config["nicovideo"]["proxyUrl"]) config["nicovideo"]["proxyUrl"] = "./p.php"
 
 window.onload = function () {
