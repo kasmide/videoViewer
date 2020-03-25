@@ -11,7 +11,7 @@ window.onload = function () {
   this.document.getElementById("youtubeSearchProvider").value = config["youtube"]["searchProvider"];
   this.document.getElementById("iframeProvider").value = config["youtube"]["viewer"];
   this.document.getElementById("invidiousURL").value = config["youtube"]["invidiousInstance"];
-  this.document.getElementById("youtubeAPIKey").value = config["youtube"]["apiKey"];
+  this.document.getElementById("youtubeAPIKey").value = config["youtube"]["apikey"];
   this.document.getElementById("nicoProxyUrl").value = config["nicovideo"]["proxyUrl"]
 }
 function youtubeSearchProvider() {
@@ -19,8 +19,8 @@ function youtubeSearchProvider() {
   localStorage.setItem("config", JSON.stringify(config));
 }
 function youtubeKeyChange() {
-  console.log(config["youtube"]["apiKey"])
-  config["youtube"]["apiKey"] = event.srcElement.value
+  console.log(config["youtube"]["apikey"])
+  config["youtube"]["apikey"] = event.srcElement.value
   localStorage.setItem("config", JSON.stringify(config));
 }
 function iframeProviderChange() {
