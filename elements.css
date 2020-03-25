@@ -1,3 +1,9 @@
+/*クソダサ枠線を勝手に描画するブラウザを許すな*/
+
+*:focus {
+	outline: none !important;
+}
+
 body {
 	background-color: #fefefe;
 }
