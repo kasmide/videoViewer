@@ -5,15 +5,18 @@ if (!config["youtube"]) {
 }
 if (!config["youtube"]["searchProvider"]) config["youtube"]["searchProvider"] = "youtube";
 if (!config["youtube"]["viewer"]) config["youtube"]["viewer"] = "https://www.youtube-nocookie.com/embed/%s";
-if (!config["youtube"]["invidiousInstance"] || config["youtube"]["invidiousInstance"]=="") config["youtube"]["invidiousInstance"] = "https://invidio.us/";
+if (!config["youtube"]["invidiousInstance"] || config["youtube"]["invidiousInstance"] == "") config["youtube"]["invidiousInstance"] = "https://invidio.us/";
 if (!config["youtube"]["apiKey"] || config["youtube"]["apiKey"] == "") config["youtube"]["apiKey"] = youtubeKey;
 localStorage.setItem("config", JSON.stringify(config));
+if (!config["nicovideo"]) config["nicovideo"] = {};
+if (!config["nicovideo"]["proxyUrl"]) config["nicovideo"]["proxyUrl"] = "./p.php"
 
 window.onload = function () {
   this.document.getElementById("youtubeSearchProvider").value = config["youtube"]["searchProvider"];
   this.document.getElementById("iframeProvider").value = config["youtube"]["viewer"];
   this.document.getElementById("invidiousURL").value = config["youtube"]["invidiousInstance"];
   this.document.getElementById("youtubeAPIKey").value = config["youtube"]["apiKey"];
+  this.document.getElementById("nicoProxyUrl").value = config["nicovideo"]["proxyUrl"]
 }
 function youtubeSearchProvider() {
   config["youtube"]["searchProvider"] = event.srcElement.value
@@ -30,6 +33,10 @@ function iframeProviderChange() {
 }
 function invidiousInstanceChange() {
   config["youtube"]["invidiousInstance"] = event.srcElement.value
+  localStorage.setItem("config", JSON.stringify(config));
+}
+function nicoProxyChange() {
+  config["nicovideo"]["proxyUrl"] = event.srcElement.value
   localStorage.setItem("config", JSON.stringify(config));
 }
 function reset() {

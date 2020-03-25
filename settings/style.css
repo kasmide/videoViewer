@@ -32,12 +32,13 @@ header h1 {
   padding: 10px;
 }
 main h2 {
-  font-weight: 300;
+  font-weight: normal;
   font-size: 24px;
 }
 main {
   height: 100%;
   margin: 20px;
+  margin-top:64px;
 }
 main > div {
   margin: 10px;

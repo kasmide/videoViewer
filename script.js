@@ -7,6 +7,7 @@ if (!config["youtube"]["searchProvider"]) config["youtube"]["searchProvider"] = 
 if (!config["youtube"]["viewer"]) config["youtube"]["viewer"] = "https://www.youtube-nocookie.com/embed/%s";
 if (!config["youtube"]["invidiousInstance"] || config["youtube"]["invidiousInstance"]=="") config["youtube"]["invidiousInstance"] = "https://invidio.us/";
 if (!config["youtube"]["apikey"] || config["youtube"]["apikey"] == "") config["youtube"]["apikey"] = youtubeKey;
+if (!config["nicovideo"]["proxyUrl"]) config["nicovideo"]["proxyUrl"] = "./p.php"
 localStorage.setItem("config", JSON.stringify(config));
 
 window.onload = function () {
@@ -244,7 +245,7 @@ function nicoSearch() {
 	xhr = new XMLHttpRequest();
 	xhr.open(
 		"GET",
-		"./p.php?q=" + document.getElementById("Search").value + "&target=" + document.getElementsByClassName("target")[0].value + "&sort=" + document.getElementsByClassName("sort")[0].value,
+		config["nicovideo"]["proxyUrl"] + "?q=" + document.getElementById("Search").value + "&target=" + document.getElementsByClassName("target")[0].value + "&sort=" + document.getElementsByClassName("sort")[0].value,
 		true
 	);
 	xhr.responseType = "json";
