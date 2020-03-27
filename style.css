@@ -135,18 +135,7 @@ select#service {
 }
 
 #searchUI {
-	z-index: 1;
-	position: fixed;
-	top: 0;
-	display: grid;
-	align-items: center;
-	width: 100%;
-	box-shadow: 0px 0px 15px #0002;
-	border-radius: 0px 0px 5px 5px;
 	grid-template-columns: auto calc(8em + 20px) 1fr;
-	background: #fffe;
-	backdrop-filter: blur(10px);
-	-webkit-backdrop-filter: blur(10px);
 }
 
 input#Search {
@@ -183,14 +172,6 @@ button#Search {
 	grid-column: 3;
 }
 
-#searchUI button {
-	display: flex;
-	align-items: center;
-}
-#searchUI button > i{
-	font-size: 20px;
-	margin:0px 5px 0px 5px;
-}
 #bookmark_menu {
 	display: none;
 	flex-direction: row-reverse;
