@@ -142,7 +142,7 @@ input#Search {
 	font-size: 20px;
 	height: 37px;
 	padding: 6px 30px 6px 10px;
-	width: 100%;
+	width: calc(100% - 10px);
 	grid-column:1;
 }
 form#SearchForm {
@@ -162,7 +162,7 @@ form#SearchForm {
 a#clear {
 	display: none;
 	position: relative;
-	left: -25px;
+	left: -33px;
 	width: 0px;
 	color: #555;
 	grid-column: 2;
